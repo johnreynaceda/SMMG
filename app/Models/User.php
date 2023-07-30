@@ -74,4 +74,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Medtech::class);
     }
+
+    public function patientAppointment()
+    {
+        return $this->hasOne(PatientAppointment::class);
+    }
 }

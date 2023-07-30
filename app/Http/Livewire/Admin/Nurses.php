@@ -15,6 +15,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
 use Livewire\WithFileUploads;
 use Filament\Tables\Columns\Layout\Stack;
+use Filament\Notifications\Notification;
 use DB;
 
 class Nurses extends Component implements Tables\Contracts\HasTable
@@ -54,6 +55,10 @@ class Nurses extends Component implements Tables\Contracts\HasTable
     
                 ]);
                 DB::commit();
+                Notification::make()
+                    ->title('Added Successfully')
+                    ->success()
+                    ->send();
             })->form([
                         Fieldset::make('NURSE INFORMATION')
                             ->schema([
@@ -113,7 +118,12 @@ class Nurses extends Component implements Tables\Contracts\HasTable
                         'email' => $data['email'],
                         'phone_number' => $data['phone_number'],
                         'password' => bcrypt($data['password']),
+                        'account_type' => 'nurse',
                     ]);
+                    Notification::make()
+                        ->title('Saved successfully')
+                        ->success()
+                        ->send();
                 }
             )->form(
                     function ($record) {

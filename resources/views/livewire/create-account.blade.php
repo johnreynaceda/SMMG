@@ -1,4 +1,4 @@
-<div x-data="{ modelOpen: false }">
+<div x-data="{ modelOpen: @entangle('modal_open') }">
     <div
         class="flex flex-1 h-full flex-col relative justify-center bg-gray-700 bg-opacity-80 px-4 py-12 sm:px-6 lg:flex-none lg:px-20 ">
         <div class="mx-auto w-full max-w-lg lg:w-[60rem]">
@@ -27,16 +27,14 @@
                             <label for="email" class="block text-sm font-medium leading-6 text-gray-100">Name
                             </label>
                             <div class="mt-2">
-                                <x-input icon="user" id="email" type="email" name="email" :value="old('email')"
-                                    required autofocus autocomplete="username" />
+                                <x-input icon="user" type="text" wire:model="name" required autofocus />
                             </div>
                         </div>
                         <div>
                             <label for="email" class="block text-sm font-medium leading-6 text-gray-100">Email
                             </label>
                             <div class="mt-2">
-                                <x-input icon="user" id="email" type="email" name="email" :value="old('email')"
-                                    required autofocus autocomplete="username" />
+                                <x-input icon="user" id="email" type="email" wire:model="email" required />
                             </div>
                         </div>
                         <div>
@@ -44,8 +42,7 @@
                                 Number
                             </label>
                             <div class="mt-2">
-                                <x-input icon="user" id="email" type="email" name="email" :value="old('email')"
-                                    required autofocus autocomplete="username" />
+                                <x-input icon="user" type="number" wire:model="phone_number" />
                             </div>
                         </div>
 
@@ -53,16 +50,15 @@
                             <label for="password"
                                 class="block text-sm font-medium leading-6 text-gray-100">Password</label>
                             <div class="mt-2">
-                                <x-inputs.password icon="key" id="password" type="password" name="password"
-                                    required autocomplete="current-password" />
+                                <x-inputs.password icon="key" type="password" required wire:model="password" />
                             </div>
                         </div>
                         <div>
                             <label for="password" class="block text-sm font-medium leading-6 text-gray-100">Confirm
                                 Password</label>
                             <div class="mt-2">
-                                <x-inputs.password icon="key" id="password" type="password" name="password"
-                                    required autocomplete="current-password" />
+                                <x-inputs.password icon="key" type="password" required
+                                    wire:model="confirm_password" />
                             </div>
                         </div>
 
@@ -70,8 +66,8 @@
 
                         <div>
                             <button>
-                                <x-button type="submit" @click="modelOpen =!modelOpen" rounded label="Create Account"
-                                    md class="w-full font-bold" negative right-icon="arrow-right" />
+                                <x-button wire:click="verifyNumber" rounded label="Create Account" md
+                                    class="w-full font-bold" negative right-icon="arrow-right" />
                             </button>
                             <div class="mt-2 text-center">
                                 <p class="text-white">Already have an account? <a href="{{ route('login') }}"
@@ -100,65 +96,65 @@
                 x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 class="inline-block w-full max-w-xl p-8 my-20 overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl 2xl:max-w-2xl">
                 <div>
-                    <div class="py-6 px-6 w-80 border mx-auto text-center my-6">
-                        <form action="#" x-data="otpForm()" method="POST">
-                            <div class="flex justify-between">
-                                <template x-for="(input, index) in length" :key="index">
-                                    <input type="tel" maxlength="1"
-                                        class="border border-gray-500 w-10 h-10 text-center" :x-ref="index"
-                                        x-on:input="handleInput($event)" x-on:paste="handlePaste($event)"
-                                        x-on:keydown.backspace="$event.target.value || handleBackspace($event.target.getAttribute('x-ref'))" />
-                                </template>
+                    <div class="mx-auto flex w-full max-w-md flex-col space-y-16">
+                        <div class="flex flex-col items-center justify-center text-center space-y-2">
+                            <div class="font-semibold text-3xl">
+                                <p>Enter Verification Code</p>
                             </div>
-                            <input type="hidden" name="otp" x-model="value">
-                            <button type="submit"
-                                class="btn-primary mx-auto block bg-gray-500 w-full p-2 mt-2 text-white">
-                                Verify OTP!
-                            </button>
-                        </form>
-                    </div>
+                            <div class="flex flex-row text-sm font-medium text-gray-400">
+                                <p>We have sent a code to your phone number ({{ $phone_number }})</p>
+                            </div>
+                        </div>
 
+                        <div>
+                            <form action="" method="post">
+                                <div class="flex flex-col space-y-16">
+                                    <div class="flex flex-row items-center justify-between mx-auto w-full max-w-xs">
+                                        <div class="w-16 h-16 ">
+                                            <input
+                                                class="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
+                                                type="text" name="" id="" wire:model="one">
+                                        </div>
+                                        <div class="w-16 h-16 ">
+                                            <input
+                                                class="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
+                                                type="text" name="" id="" wire:model="two">
+                                        </div>
+                                        <div class="w-16 h-16 ">
+                                            <input
+                                                class="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
+                                                type="text" name="" id="" wire:model="three">
+                                        </div>
+                                        <div class="w-16 h-16 ">
+                                            <input
+                                                class="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
+                                                type="text" name="" id="" wire:model="four">
+                                        </div>
+                                    </div>
+
+                                    <div class="flex flex-col space-y-5">
+                                        <div>
+                                            {{-- <button
+                                                class="flex flex-row items-center justify-center text-center w-full border rounded-xl outline-none py-5 bg-red-700 border-none text-white shadow-sm">
+                                                Verify Account
+                                            </button> --}}
+                                            <x-button label="Verify Account" lg class="font-bold w-full" negative
+                                                rounded />
+                                        </div>
+
+                                        <div
+                                            class="flex flex-row items-center justify-center text-center text-sm font-medium space-x-1 text-gray-500">
+                                            <p>Didn't recieve code?</p> <a
+                                                class="flex flex-row items-center text-blue-600" href="http://"
+                                                target="_blank" rel="noopener noreferrer">Resend</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script>
-    < script script >
-        function otpForm() {
-            return {
-                length: 6,
-                value: "",
-
-                handleInput(e) {
-                    const input = e.target;
-
-                    this.value = Array.from(Array(this.length), (element, i) => {
-                        return this.$refs[i].value || "";
-                    }).join("");
-
-                    if (input.nextElementSibling && input.value) {
-                        input.nextElementSibling.focus();
-                        input.nextElementSibling.select();
-                    }
-                },
-
-                handlePaste(e) {
-                    const paste = e.clipboardData.getData('text');
-                    this.value = paste;
-
-                    const inputs = Array.from(Array(this.length));
-
-                    inputs.forEach((element, i) => {
-                        this.$refs[i].value = paste[i] || '';
-                    });
-                },
-
-                handleBackspace(e) {
-                    const previous = parseInt(e, 10) - 1;
-                    this.$refs[previous] && this.$refs[previous].focus();
-                },
-            };
-        } <
-        />
-</script>

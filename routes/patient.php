@@ -21,4 +21,11 @@ Route::prefix('patient')
         Route::get('/appointment', function () {
             return view('appointment');
         })->name('appointment');
+
+        Route::get('/get-appointment/{id}', function () {
+            return view('get-appointment');
+        })->name('get-appointment');
+        Route::get('/submit-appointment', function () {
+            return view('submit-appointment');
+        })->name('submit-appointment');
     });

@@ -15,6 +15,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
 use Livewire\WithFileUploads;
 use Filament\Tables\Columns\Layout\Stack;
+use Filament\Notifications\Notification;
 use DB;
 
 class Doctor extends Component implements Tables\Contracts\HasTable
@@ -42,6 +43,7 @@ class Doctor extends Component implements Tables\Contracts\HasTable
                     'email' => $data['email'],
                     'phone_number' => $data['phone_number'],
                     'password' => bcrypt($data['password']),
+                    'account_type' => 'doctor',
                 ]);
 
                 doctorModel::create([
@@ -50,12 +52,16 @@ class Doctor extends Component implements Tables\Contracts\HasTable
                     'middlename' => $data['middlename'],
                     'lastname' => $data['lastname'],
                     'specialization' => $data['specialization'],
-                    // 'image_path' => $data['attachment'][0]->store('doctor_attachments', 'public'),
-    
+                    'schedule' => $data['schedule'],
+
                 ]);
 
 
                 DB::commit();
+                Notification::make()
+                    ->title('Added Successfully')
+                    ->success()
+                    ->send();
             })->form([
                         Fieldset::make('DOCTOR INFORMATION')
                             ->schema([
@@ -64,7 +70,7 @@ class Doctor extends Component implements Tables\Contracts\HasTable
                                 TextInput::make('lastname')->label('Last Name')->required(),
                                 TextInput::make('phone_number')->label('Phone Number')->numeric()->required(),
                                 TextInput::make('specialization')->label('Specialization')->required(),
-                                // FileUpload::make('attachment')->label('Attachment')->multiple()->required(),
+                                TextInput::make('schedule')->label('Schedule')->required(),
                             ])
                             ->columns(3),
                         Fieldset::make('ACCOUNT INFORMATION')
@@ -88,6 +94,7 @@ class Doctor extends Component implements Tables\Contracts\HasTable
             ViewColumn::make('name')->label('FULLNAME')->view('admin.doctor-filament')->searchable(['firstname', 'middlename', 'lastname', 'specialization']),
             Tables\Columns\TextColumn::make('user.email')->label('EMAIL')->searchable(),
             Tables\Columns\TextColumn::make('user.phone_number')->label('PHONE NUMBER')->searchable(),
+            Tables\Columns\TextColumn::make('schedule')->label('SCHEDULE')->searchable(),
             Tables\Columns\TextColumn::make('created_at')->label('CREATED DATE')->date()->searchable(),
 
         ];
@@ -105,6 +112,7 @@ class Doctor extends Component implements Tables\Contracts\HasTable
                         'middlename' => $data['middlename'],
                         'lastname' => $data['lastname'],
                         'specialization' => $data['specialization'],
+                        'schedule' => $data['schedule'],
                         // 'image_path' => $data['attachment'][0]->store('doctor_attachments', 'public'),
                     ]);
 
@@ -113,6 +121,7 @@ class Doctor extends Component implements Tables\Contracts\HasTable
                         'email' => $data['email'],
                         'phone_number' => $data['phone_number'],
                         'password' => bcrypt($data['password']),
+                        'account_type' => 'doctor',
                     ]);
                 }
             )->form(
@@ -125,6 +134,7 @@ class Doctor extends Component implements Tables\Contracts\HasTable
                                     TextInput::make('lastname')->label('Last Name')->required()->default($record->lastname),
                                     TextInput::make('phone_number')->label('Phone Number')->numeric()->required()->default($record->user->phone_number),
                                     TextInput::make('specialization')->label('Specialization')->required()->default($record->specialization),
+                                    TextInput::make('schedule')->label('Schedule')->required()->default($record->schedule),
                                     // FileUpload::make('attachment')->label('Attachment')->multiple()->required(),
                                 ])
                                 ->columns(3),

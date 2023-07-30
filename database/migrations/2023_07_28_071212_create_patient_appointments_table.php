@@ -10,15 +10,13 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('doctors', function (Blueprint $table) {
+        Schema::create('patient_appointments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->string('firstname');
-            $table->string('middlename');
-            $table->string('lastname');
-            $table->string('specialization');
-            $table->string('schedule');
-            $table->string('image_path')->nullable();
+            $table->foreignId('doctor_id');
+            $table->longText('condition');
+            $table->dateTime('appointment_date');
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('doctors');
+        Schema::dropIfExists('patient_appointments');
     }
 };
