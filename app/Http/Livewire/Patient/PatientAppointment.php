@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Livewire\Doctor;
+namespace App\Http\Livewire\Patient;
 
-use App\Models\PatientAppointment;
 use Livewire\Component;
+use App\Models\PatientAppointment as Appointment;
 
-class DoctorAppointment extends Component
+class PatientAppointment extends Component
 {
     public $view_modal = false;
     public $is_collected;
@@ -13,14 +13,14 @@ class DoctorAppointment extends Component
     public $bp_attachment, $hr_attatchment, $bsc_attachment;
     public function render()
     {
-        return view('livewire.doctor.doctor-appointment', [
-            'appointments' => PatientAppointment::where('doctor_id', auth()->user()->doctor->id)->whereHas('checkup')->get()
+        return view('livewire.patient.patient-appointment', [
+            'appointments' => Appointment::where('user_id', auth()->user()->id)->where('status', 'accepted')->get(),
         ]);
     }
 
     public function openForm($id)
     {
-        $this->appointment_data = PatientAppointment::where('id', $id)->first()->checkup;
+        $this->appointment_data = Appointment::where('id', $id)->first()->checkup;
         $this->is_collected = $this->appointment_data->blood_is_collected;
         $this->bp_attachment = $this->appointment_data->bp_attachment;
         $this->hr_attatchment = $this->appointment_data->hr_attachment;

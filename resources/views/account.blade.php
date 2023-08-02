@@ -8,7 +8,7 @@
                     <header class="px-10 text-xl font-bold text-gray-600">MY ACCOUNT</header>
                     <div class="py-5 px-10">
                         <div class="bg-white p-10 rounded-lg">
-                            Coming Soon...
+                            <livewire:patient.patient-account />
                         </div>
                     </div>
                 </div>

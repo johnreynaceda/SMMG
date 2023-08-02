@@ -8,7 +8,14 @@
                     </path>
                 </svg>
                 <div>
-                    <h1 class="text-2xl font-bold">100</h1>
+                    <h1 class="text-2xl font-bold">
+                        @php
+                            $count = \App\Models\PatientAppointment::where('doctor_id', auth()->user()->doctor->id)
+                                ->where('status', 'accepted')
+                                ->count();
+                        @endphp
+                        {{ $count }}
+                    </h1>
                     <h1 class="text-sm leading-3">Appointment(s)</h1>
                 </div>
             </div>
@@ -19,7 +26,13 @@
                     </path>
                 </svg>
                 <div>
-                    <h1 class="text-2xl font-bold">100</h1>
+                    <h1 class="text-2xl font-bold">
+                        @php
+                            $count = \App\Models\PatientAppointment::where('doctor_id', auth()->user()->doctor->id)
+                            ->count();
+                        @endphp
+                        {{ $count }}
+                    </h1>
                     <h1 class="text-sm leading-3"> Patient(s)</h1>
                 </div>
             </div>

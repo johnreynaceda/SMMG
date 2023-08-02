@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Specialization;
 use App\Models\User;
 use Filament\Tables\Actions\Action;
 use Livewire\Component;
@@ -17,6 +18,7 @@ use Livewire\WithFileUploads;
 use Filament\Tables\Columns\Layout\Stack;
 use Filament\Notifications\Notification;
 use DB;
+use Filament\Forms\Components\Select;
 
 class Doctor extends Component implements Tables\Contracts\HasTable
 {
@@ -69,7 +71,7 @@ class Doctor extends Component implements Tables\Contracts\HasTable
                                 TextInput::make('middlename')->label('Middle Name')->required(),
                                 TextInput::make('lastname')->label('Last Name')->required(),
                                 TextInput::make('phone_number')->label('Phone Number')->numeric()->required(),
-                                TextInput::make('specialization')->label('Specialization')->required(),
+                                Select::make('specialization')->options(Specialization::pluck('name', 'id')),
                                 TextInput::make('schedule')->label('Schedule')->required(),
                             ])
                             ->columns(3),

@@ -43,6 +43,7 @@ class Nurses extends Component implements Tables\Contracts\HasTable
                     'email' => $data['email'],
                     'phone_number' => $data['phone_number'],
                     'password' => bcrypt($data['password']),
+                    'account_type' => 'nurse',
                 ]);
 
                 Nurse::create([
@@ -93,7 +94,6 @@ class Nurses extends Component implements Tables\Contracts\HasTable
             Tables\Columns\TextColumn::make('user.email')->label('EMAIL')->searchable(),
             Tables\Columns\TextColumn::make('user.phone_number')->label('PHONE NUMBER')->searchable(),
             Tables\Columns\TextColumn::make('created_at')->label('CREATED DATE')->date()->searchable(),
-
         ];
 
     }

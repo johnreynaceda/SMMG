@@ -15,5 +15,8 @@ Route::prefix('admin')
         Route::get('/medtech', function () {
             return view('admin.medtech');
         })->name('admin.medtech');
+        Route::get('/specialization', function () {
+            return view('admin.specialization');
+        })->name('admin.specialization');
 
     });

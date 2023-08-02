@@ -75,8 +75,8 @@ class User extends Authenticatable
         return $this->hasOne(Medtech::class);
     }
 
-    public function patientAppointment()
+    public function patientAppointments()
     {
-        return $this->hasOne(PatientAppointment::class);
+        return $this->hasMany(PatientAppointment::class);
     }
 }

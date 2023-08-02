@@ -1,55 +1,67 @@
 <div>
-    <div class="grid grid-cols-3 gap-4">
-        @forelse ($appointments as $item)
-            <div class="bg-white p-5 relative rounded-xl shadow-xl">
-                <div class="flex space-x-3 items-center">
-                    <img src="{{ asset('images/doctor.png') }}" class="h-12 w-12 bg-red-500 rounded-full" alt="">
-                    <div class="flex-1">
-                        <div class="flex justify-between  space-x-3">
-                            <h1 class="uppercase font-bold text-gray-700">{{ $item->user->name }}</h1>
-                            @switch($item->status)
-                                @case('pending')
-                                    <x-badge label="Pending" warning outline xs />
-                                @break
-
-                                @case('accepted')
-                                    <x-badge label="Accepted" positive outline xs />
-                                @break
-
-                                @case('declined')
-                                    <x-badge label="Decline" negative outline xs />
-                                @break
-
-                                @default
-                            @endswitch
+    <header class="px-10 text-xl font-bold text-gray-600">MY APPOINTMENTS</header>
+    <div class="py-5 px-10">
+        {{-- <div class="flex">
+            <x-native-select wire:model="model">
+                <option>Select an Option</option>
+                <option>Upcoming</option>
+                <option>Past</option>
+            </x-native-select>
+        </div> --}}
+        <div class="flex flex-col space-y-2 mt-3">
+            @forelse ($appointments as $appointment)
+                <div class="bg-white shadow flex justify-between items-center p-5 px-10 rounded-lg">
+                    <div class="flex space-x-3 items-center">
+                        <div class="h-32 w-32 rounded-full bg-red-500 overflow-hidden">
+                            <img src="{{ asset('images/doctor.png') }}" class="  rounded-lg" alt="">
                         </div>
-                        <h1 class="text-sm leading-3 text-gray-500">
-                            {{ \Carbon\Carbon::parse($item->appointment_date)->format('F d, Y h:i A ') }}</h1>
+                        <div>
+                            <div class="flex space-x-3 items-center">
+                                <h1 class="text-2xl font-bold text-gray-900 uppercase">
+                                    {{ $appointment->doctor->user->name }}</h1>
+                                @switch($appointment->status)
+                                    @case('pending')
+                                        <x-badge rounded label="Pending" warning outleine sm />
+                                    @break
+
+                                    @case('accepted')
+                                        <x-badge rounded label="Accepted" positive outline sm />
+                                    @break
+
+                                    @case('declined')
+                                        <x-badge rounded label="Declined" negative outline sm />
+                                    @break
+
+                                    @default
+                                @endswitch
+                            </div>
+                            <h1 class="text-lg text-gray-600">{{ $appointment->doctor->specialization }}</h1>
+                            <div class="flex space-x-1 items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    class="h-4 w-4 fill-gray-500">
+                                    <path
+                                        d="M9 1V3H15V1H17V3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H7V1H9ZM20 11H4V19H20V11ZM11 13V17H6V13H11ZM7 5H4V9H20V5H17V7H15V5H9V7H7V5Z">
+                                    </path>
+                                </svg>
+                                <h1 class="text-sm text-gray-600">
+                                    {{ \Carbon\Carbon::parse($appointment->appointment_date)->format('F d, Y h:i A') }}
+                                </h1>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="mt-2 mb-14">
-                    <h1 class="text-sm leading-3 text-gray-500">Condition:</h1>
-                    <p class="text-sm leading-4 mt-1 text-justify text-gray-700">{{ $item->condition }}</p>
-                </div>
-                <div class="absolute bottom-2 pt-2 left-5 right-5 border-t mt-5">
-                    <div class="flex justify-end space-x-2 items-center">
-                        @if ($item->has('checkup'))
-                            <x-button label="View Check-Up Form" wire:click="openForm({{ $item->id }})"
-                                spinner="openForm({{ $item->id }})" icon="eye" xs rounded warning />
+                    <div>
+                        @if ($appointment->checkup != null)
+                            <x-button label="View Details" wire:click="openForm({{ $appointment->id }})"
+                                spinner="openForm({{ $appointment->id }})" rounded negative class="px-6 font-bold" />
                         @else
-                            @if ($item->status == 'pending')
-                                <x-button label="Declined" icon="x-circle" xs rounded outline negative />
-                                <x-button label="Accepted" icon="check-circle" xs rounded positive />
-                            @endif
                         @endif
                     </div>
                 </div>
+                @empty
+                @endforelse
+
+
             </div>
-            @empty
-                <div class="mt-5 col-span-3">
-                    <h1 class="text-gray-600 font-medium text-xl text-center">No Appointment Request...</h1>
-                </div>
-            @endforelse
         </div>
         <x-modal.card title="CHECKUP FORM" fullscreen blur wire:model.defer="view_modal">
             <div class="mx-auto max-w-7xl ">

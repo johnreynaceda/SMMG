@@ -103,6 +103,19 @@
                                         </span>
                                     </a>
                                 </li>
+                                <li>
+                                    <a class="{{ request()->routeIs('admin.specialization') ? 'bg-white text-gray-700 fill-gray-700' : 'text-white fill-white' }} inline-flex  items-center w-full px-4 py-2 mt-1    transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100  hover:scale-95 hover:text-gray-700 hover:fill-gray-700"
+                                        href="{{ route('admin.specialization') }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
+                                            <path
+                                                d="M8 3V5H6V9C6 11.2091 7.79086 13 10 13C12.2091 13 14 11.2091 14 9V5H12V3H15C15.5523 3 16 3.44772 16 4V9C16 11.9727 13.8381 14.4405 11.0008 14.9169L11 16.5C11 18.433 12.567 20 14.5 20C15.9973 20 17.275 19.0598 17.7749 17.7375C16.7283 17.27 16 16.2201 16 15C16 13.3431 17.3431 12 19 12C20.6569 12 22 13.3431 22 15C22 16.3711 21.0802 17.5274 19.824 17.8854C19.2102 20.252 17.0592 22 14.5 22C11.4624 22 9 19.5376 9 16.5L9.00019 14.9171C6.16238 14.4411 4 11.9731 4 9V4C4 3.44772 4.44772 3 5 3H8ZM19 14C18.4477 14 18 14.4477 18 15C18 15.5523 18.4477 16 19 16C19.5523 16 20 15.5523 20 15C20 14.4477 19.5523 14 19 14Z">
+                                            </path>
+                                        </svg>
+                                        <span class="ml-4">
+                                            Specialization
+                                        </span>
+                                    </a>
+                                </li>
                             </ul>
                             <p class="px-4 pt-4 text-xs font-semibold text-gray-800 uppercase">
                                 MEDICAL STAFF
@@ -140,6 +153,19 @@
                             </ul>
                             <div class="border-t w-full"></div>
                             <ul>
+                                <li>
+                                    <a class="inline-flex  items-center w-full px-4 py-2 mt-1  text-white fill-white transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100  hover:scale-95 hover:text-gray-700 hover:fill-gray-700"
+                                        href="#">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
+                                            <path
+                                                d="M11 7H13V17H11V7ZM15 11H17V17H15V11ZM7 13H9V17H7V13ZM15 4H5V20H19V8H15V4ZM3 2.9918C3 2.44405 3.44749 2 3.9985 2H16L20.9997 7L21 20.9925C21 21.5489 20.5551 22 20.0066 22H3.9934C3.44476 22 3 21.5447 3 21.0082V2.9918Z">
+                                            </path>
+                                        </svg>
+                                        <span class="ml-4">
+                                            Reports
+                                        </span>
+                                    </a>
+                                </li>
                                 <li>
                                     <a class="inline-flex  items-center w-full px-4 py-2 mt-1  text-white fill-white transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100  hover:scale-95 hover:text-gray-700 hover:fill-gray-700"
                                         href="#">

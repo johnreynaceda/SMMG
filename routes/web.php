@@ -41,6 +41,11 @@ Route::middleware([
                 return redirect()->route('doctor.dashboard');
                 break;
 
+            case 'nurse':
+                return redirect()->route('nurse.dashboard');
+                break;
+
+
             default:
                 # code...
                 break;

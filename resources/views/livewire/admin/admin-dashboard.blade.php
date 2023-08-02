@@ -4,18 +4,18 @@
             <div class="border bg-gradient-to-tl from-[#A17666] to-[#617E5B] relative rounded-xl h-96 p-5">
                 <img src="{{ asset('images/logo.png') }}" class="absolute bottom-5 opacity-50 right-5 h-14" alt="">
                 <h1 class="font-bold text-white">Visits for Today</h1>
-                <h1 class="text-gray-100 text-4xl font-bold ">100</h1>
+                <h1 class="text-gray-100 text-4xl font-bold ">{{ $visits }}</h1>
                 <div class="mt-10">
                     <div class="w-full bg-white bg-opacity-70 rounded-lg p-5">
                         <center>
                             <h1 class="font-bold text-gray-600">New Patient</h1>
-                            <h1 class="text-xl font-semibold text-gray-600">35</h1>
+                            <h1 class="text-xl font-semibold text-gray-600">{{ $new }}</h1>
                         </center>
                     </div>
                     <div class="w-full mt-5 relative bg-white bg-opacity-70 rounded-lg p-5">
                         <center>
                             <h1 class="font-bold text-gray-600">Old Patient</h1>
-                            <h1 class="text-xl font-semibold text-gray-600">35</h1>
+                            <h1 class="text-xl font-semibold text-gray-600">{{ $old }}</h1>
                         </center>
                     </div>
                 </div>

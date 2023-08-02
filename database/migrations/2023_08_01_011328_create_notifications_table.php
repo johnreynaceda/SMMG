@@ -10,15 +10,12 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('doctors', function (Blueprint $table) {
+        Schema::create('notifications', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->string('firstname');
-            $table->string('middlename');
-            $table->string('lastname');
-            $table->foreignId('specialization_id');
-            $table->string('schedule');
-            $table->string('image_path')->nullable();
+            $table->foreignId('patient_appointment_id');
+            $table->foreignId('doctor_id');
+            $table->string('description');
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('doctors');
+        Schema::dropIfExists('notifications');
     }
 };
