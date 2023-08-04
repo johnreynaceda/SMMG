@@ -53,7 +53,7 @@ class Doctor extends Component implements Tables\Contracts\HasTable
                     'firstname' => $data['firstname'],
                     'middlename' => $data['middlename'],
                     'lastname' => $data['lastname'],
-                    'specialization' => $data['specialization'],
+                    'specialization_id' => $data['specialization'],
                     'schedule' => $data['schedule'],
 
                 ]);
@@ -93,7 +93,7 @@ class Doctor extends Component implements Tables\Contracts\HasTable
 
         return [
 
-            ViewColumn::make('name')->label('FULLNAME')->view('admin.doctor-filament')->searchable(['firstname', 'middlename', 'lastname', 'specialization']),
+            ViewColumn::make('name')->label('FULLNAME')->view('admin.doctor-filament')->searchable(['firstname', 'middlename', 'lastname']),
             Tables\Columns\TextColumn::make('user.email')->label('EMAIL')->searchable(),
             Tables\Columns\TextColumn::make('user.phone_number')->label('PHONE NUMBER')->searchable(),
             Tables\Columns\TextColumn::make('schedule')->label('SCHEDULE')->searchable(),
@@ -113,7 +113,7 @@ class Doctor extends Component implements Tables\Contracts\HasTable
                         'firstname' => $data['firstname'],
                         'middlename' => $data['middlename'],
                         'lastname' => $data['lastname'],
-                        'specialization' => $data['specialization'],
+                        'specialization_id' => $data['specialization'],
                         'schedule' => $data['schedule'],
                         // 'image_path' => $data['attachment'][0]->store('doctor_attachments', 'public'),
                     ]);
@@ -135,7 +135,7 @@ class Doctor extends Component implements Tables\Contracts\HasTable
                                     TextInput::make('middlename')->label('Middle Name')->required()->default($record->middlename),
                                     TextInput::make('lastname')->label('Last Name')->required()->default($record->lastname),
                                     TextInput::make('phone_number')->label('Phone Number')->numeric()->required()->default($record->user->phone_number),
-                                    TextInput::make('specialization')->label('Specialization')->required()->default($record->specialization),
+                                    Select::make('specialization')->options(Specialization::pluck('name', 'id'))->default($record->specialization->id),
                                     TextInput::make('schedule')->label('Schedule')->required()->default($record->schedule),
                                     // FileUpload::make('attachment')->label('Attachment')->multiple()->required(),
                                 ])

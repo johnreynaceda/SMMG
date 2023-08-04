@@ -13,6 +13,7 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- Scripts -->
     @wireUiScripts
@@ -65,8 +66,8 @@
 
                             <ul>
                                 <li>
-                                    <a class="inline-flex  items-center w-full px-4 py-2 mt-1  text-white fill-white transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100  hover:scale-95 hover:text-gray-700 hover:fill-gray-700"
-                                        href="#">
+                                    <a class="{{ request()->routeIs('admin.dashboard') ? 'bg-white text-gray-700 fill-gray-700' : 'text-white fill-white' }} inline-flex  items-center w-full px-4 py-2 mt-1    transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100  hover:scale-95 hover:text-gray-700 hover:fill-gray-700"
+                                        href="{{ route('admin.dashboard') }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
                                             <path
                                                 d="M12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2ZM12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4ZM12 5C13.018 5 13.9852 5.21731 14.8579 5.60806L13.2954 7.16944C12.8822 7.05892 12.448 7 12 7C9.23858 7 7 9.23858 7 12C7 13.3807 7.55964 14.6307 8.46447 15.5355L7.05025 16.9497L6.89445 16.7889C5.71957 15.5368 5 13.8525 5 12C5 8.13401 8.13401 5 12 5ZM18.3924 9.14312C18.7829 10.0155 19 10.9824 19 12C19 13.933 18.2165 15.683 16.9497 16.9497L15.5355 15.5355C16.4404 14.6307 17 13.3807 17 12C17 11.552 16.9411 11.1178 16.8306 10.7046L18.3924 9.14312ZM16.2426 6.34315L17.6569 7.75736L13.9325 11.483C13.9765 11.6479 14 11.8212 14 12C14 13.1046 13.1046 14 12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C12.1788 10 12.3521 10.0235 12.517 10.0675L16.2426 6.34315Z">
@@ -78,8 +79,8 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="inline-flex  items-center w-full px-4 py-2 mt-1  text-white fill-white transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100  hover:scale-95 hover:text-gray-700 hover:fill-gray-700"
-                                        href="#">
+                                    <a class="{{ request()->routeIs('admin.patients') ? 'bg-white text-gray-700 fill-gray-700' : 'text-white fill-white' }} inline-flex  items-center w-full px-4 py-2 mt-1    transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100  hover:scale-95 hover:text-gray-700 hover:fill-gray-700"
+                                        href="{{ route('admin.patients') }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
                                             <path
                                                 d="M17.841 15.659L18.017 15.836L18.1945 15.659C19.0732 14.7803 20.4978 14.7803 21.3765 15.659C22.2552 16.5377 22.2552 17.9623 21.3765 18.841L18.0178 22.1997L14.659 18.841C13.7803 17.9623 13.7803 16.5377 14.659 15.659C15.5377 14.7803 16.9623 14.7803 17.841 15.659ZM12 14V16C8.68629 16 6 18.6863 6 22H4C4 17.6651 7.44784 14.1355 11.7508 14.0038L12 14ZM12 1C15.315 1 18 3.685 18 7C18 10.2397 15.4357 12.8776 12.225 12.9959L12 13C8.685 13 6 10.315 6 7C6 3.76034 8.56434 1.12237 11.775 1.00414L12 1ZM12 3C9.78957 3 8 4.78957 8 7C8 9.21043 9.78957 11 12 11C14.2104 11 16 9.21043 16 7C16 4.78957 14.2104 3 12 3Z">
@@ -91,8 +92,8 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="inline-flex  items-center w-full px-4 py-2 mt-1  text-white fill-white transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100  hover:scale-95 hover:text-gray-700 hover:fill-gray-700"
-                                        href="#">
+                                    <a class="{{ request()->routeIs('admin.appointments') ? 'bg-white text-gray-700 fill-gray-700' : 'text-white fill-white' }} inline-flex  items-center w-full px-4 py-2 mt-1    transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100  hover:scale-95 hover:text-gray-700 hover:fill-gray-700"
+                                        href="{{ route('admin.appointments') }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
                                             <path
                                                 d="M9 1V3H15V1H17V3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H7V1H9ZM20 11H4V19H20V11ZM11 13V17H6V13H11ZM7 5H4V9H20V5H17V7H15V5H9V7H7V5Z">
@@ -166,7 +167,7 @@
                                         </span>
                                     </a>
                                 </li>
-                                <li>
+                                {{-- <li>
                                     <a class="inline-flex  items-center w-full px-4 py-2 mt-1  text-white fill-white transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100  hover:scale-95 hover:text-gray-700 hover:fill-gray-700"
                                         href="#">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
@@ -192,7 +193,7 @@
                                             Services
                                         </span>
                                     </a>
-                                </li>
+                                </li> --}}
                             </ul>
 
 

@@ -14,7 +14,7 @@ class PatientAppointment extends Component
     public function render()
     {
         return view('livewire.patient.patient-appointment', [
-            'appointments' => Appointment::where('user_id', auth()->user()->id)->where('status', 'accepted')->get(),
+            'appointments' => Appointment::where('user_id', auth()->user()->id)->get(),
         ]);
     }
 

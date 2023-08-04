@@ -18,7 +18,7 @@
                             {{ $doctor_data->firstname . ' ' . $doctor_data->lastname }}
                         </h1>
                         <div class="mt-1">
-                            <h1 class="text-gray-700 ">{{ $doctor_data->specialization }}</h1>
+                            <h1 class="text-gray-700 ">{{ $doctor_data->specialization->name }}</h1>
                         </div>
                         <div class="mt-1">
                             <h1 class="text-gray-700 ">({{ $doctor_data->schedule }})</h1>

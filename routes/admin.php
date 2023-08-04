@@ -18,5 +18,11 @@ Route::prefix('admin')
         Route::get('/specialization', function () {
             return view('admin.specialization');
         })->name('admin.specialization');
+        Route::get('/appointments', function () {
+            return view('admin.appointments');
+        })->name('admin.appointments');
+        Route::get('/patients', function () {
+            return view('admin.patients');
+        })->name('admin.patients');
 
     });

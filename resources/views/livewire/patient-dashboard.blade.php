@@ -112,7 +112,8 @@
                             <h1 class="text-2xl  text-center uppercase font-bold text-gray-700">
                                 {{ $item->firstname . ' ' . $item->lastname }}
                             </h1>
-                            <h1 class="text-lg text-center font-medium text-gray-500">{{ $item->specialization }}</h1>
+                            <h1 class="text-lg text-center font-medium text-gray-500">{{ $item->specialization->name }}
+                            </h1>
                         </div>
                         <x-button outline label="Get Appointment"
                             href="{{ route('get-appointment', ['id' => $item->id]) }}" dark rounded

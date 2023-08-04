@@ -138,8 +138,8 @@
                                                 class="flex flex-row items-center justify-center text-center w-full border rounded-xl outline-none py-5 bg-red-700 border-none text-white shadow-sm">
                                                 Verify Account
                                             </button> --}}
-                                            <x-button label="Verify Account" lg class="font-bold w-full" negative
-                                                rounded />
+                                            <x-button wire:click="verifyAccount" spinner="verifyAccount"
+                                                label="Verify Account" lg class="font-bold w-full" negative rounded />
                                         </div>
 
                                         <div

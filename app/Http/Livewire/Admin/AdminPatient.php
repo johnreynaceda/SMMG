@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Livewire\Nurse;
+namespace App\Http\Livewire\Admin;
 
 use Livewire\Component;
-use Filament\Tables\Actions\Action;
 use App\Models\User;
 use Filament\Tables;
 use Filament\Tables\Columns\ViewColumn;
@@ -15,9 +14,11 @@ use Filament\Forms\Components\FileUpload;
 use Livewire\WithFileUploads;
 use Filament\Tables\Columns\Layout\Stack;
 use Filament\Notifications\Notification;
+use Filament\Tables\Columns\BadgeColumn;
 use DB;
+use Filament\Forms\Components\Select;
 
-class PatientList extends Component implements Tables\Contracts\HasTable
+class AdminPatient extends Component implements Tables\Contracts\HasTable
 {
     use Tables\Concerns\InteractsWithTable;
     use WithFileUploads;
@@ -25,37 +26,25 @@ class PatientList extends Component implements Tables\Contracts\HasTable
     protected function getTableQuery(): Builder
     {
 
-        return User::query()->whereHas('patientAppointments');
+        return User::query()->where('account_type', 'patient');
 
     }
 
-    public function render()
-    {
-        return view('livewire.nurse.patient-list', [
-            'patients_count' => User::whereHas('patientAppointments')->count(),
-        ]);
-    }
     protected function getTableColumns(): array
     {
 
         return [
+
             Tables\Columns\TextColumn::make('name')->label('NAME')->searchable(),
             Tables\Columns\TextColumn::make('email')->label('EMAIL')->searchable(),
             Tables\Columns\TextColumn::make('phone_number')->label('PHONE NUMBER')->searchable(),
-            Tables\Columns\TextColumn::make('created_at')->label('CREATED DATE')->date()->searchable(),
+            Tables\Columns\BadgeColumn::make('created_at')->date()->label('CREATED AT')
 
         ];
 
     }
-
-    protected function getTableActions(): array
+    public function render()
     {
-
-        return [
-
-            // Action::make('edit')->label('View Result')->icon('heroicon-o-eye')->color('warning'),
-        ];
-
-
+        return view('livewire.admin.admin-patient');
     }
 }
