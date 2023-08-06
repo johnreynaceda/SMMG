@@ -45,6 +45,8 @@ class AdminPatient extends Component implements Tables\Contracts\HasTable
     }
     public function render()
     {
-        return view('livewire.admin.admin-patient');
+        return view('livewire.admin.admin-patient', [
+            'patients_count' => User::where('account_type', 'patient')->count(),
+        ]);
     }
 }

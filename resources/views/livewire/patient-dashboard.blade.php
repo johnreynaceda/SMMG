@@ -93,7 +93,7 @@
                 </defs>
             </svg>
         </div>
-        <center class="mt-10 font-bold text-3xl uppercase text-gray-900">DOCTORS AND MEDICAL STAFF</center>
+        <center class="mt-10 font-bold text-3xl uppercase text-gray-900">DOCTORS</center>
         <div class=" mx-auto pb-20 mt-20 max-w-7xl relative">
 
             <div class="grid   grid-cols-3 gap-5">
