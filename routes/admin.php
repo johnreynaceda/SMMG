@@ -24,5 +24,8 @@ Route::prefix('admin')
         Route::get('/patients', function () {
             return view('admin.patients');
         })->name('admin.patients');
+        Route::get('/reports', function () {
+            return view('admin.reports');
+        })->name('admin.reports');
 
     });
