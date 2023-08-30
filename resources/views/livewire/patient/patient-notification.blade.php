@@ -1,9 +1,9 @@
 <div>
     <header class="px-10 text-xl font-bold text-gray-600">NOTIFICATION</header>
     <div class="py-5 px-10">
-        <div class="flex space-x-2 justify-end items-center">
+        {{-- <div class="flex space-x-2 justify-end items-center">
             <x-button flat right-icon="bookmark-alt" dark label="Mark all as read" />
-        </div>
+        </div> --}}
         <div class="flex flex-col space-y-2 mt-3">
             @forelse ($notifications as $notification)
                 <div class="bg-white shadow flex  items-center p-5 rounded-lg">
@@ -16,6 +16,9 @@
 
                 </div>
             @empty
+                <div class="">
+                    <p class="text-center text-xl text-gray-400">No notification</p>
+                </div>
             @endforelse
 
         </div>

@@ -22,8 +22,12 @@
                     <x-nav-link href="{{ route('notification') }}" :active="request()->routeIs('notification')">
                         {{ __('Notification') }}
                     </x-nav-link>
+
                     <x-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')">
                         {{ __('Contact') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('my-account') }}" :active="request()->routeIs('my-account')">
+                        {{ __('My Account') }}
                     </x-nav-link>
                 </div>
             </div>

@@ -28,4 +28,7 @@ Route::prefix('patient')
         Route::get('/submit-appointment', function () {
             return view('submit-appointment');
         })->name('submit-appointment');
+        Route::get('/my-account', function () {
+            return view('account');
+        })->name('my-account');
     });
