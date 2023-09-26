@@ -137,14 +137,55 @@
                 <div class="border-b sticky top-0 z-50 bg-white py-4">
                     <div class="flex justify-between items-center px-10">
                         <h1 class="text-2xl font-bold text-gray-700">Welcome {{ auth()->user()->name }}!</h1>
-                        <div class="flex space-x-3 items-center">
-                            <div class="h-14 w-14 rounded-full bg-red-500 overflow-hidden">
-                                <img src="{{ asset('images/doctor.png') }}" class="h-full w-full object-cover"
-                                    alt="">
-                            </div>
+                        <div class="relative flex-shrink-0 ml-5" @click.away="open = false" x-data="{ open: false }">
                             <div>
-                                <h1 class="uppercase font-bold text-gray-700">{{ auth()->user()->name }}</h1>
-                                <h1 class="text-sm leading-3">{{ ucfirst(auth()->user()->account_type) }}</h1>
+                                <button @click="open = !open" class="flex space-x-3 items-center group">
+                                    <img src="{{ asset('images/doctor.png') }}"
+                                        class="h-12 w-12 rounded-full object-cover bg-red-500" alt="">
+                                    <div class="flex space-x-5 items-center ">
+                                        <div class="flex flex-col text-left">
+                                            <h1 class="font-bold group-hover:text-blue-700 uppercase">
+                                                {{ auth()->user()->name }}</h1>
+                                            <span class="leading-3 text-gray-500 text-sm">Administrator</span>
+                                        </div>
+                                        <div>
+                                            <svg :class="{ 'rotate-180': open, 'rotate-0': !open }"
+                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                class="h-6 w-6 fill-gray-500 transition-transform duration-200 transform group-hover:fill-blue-700 rotate-0"">
+                                                <path d="M12 16L6 10H18L12 16Z"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+
+
+                                </button>
+                            </div>
+
+                            <div x-show="open" x-transition:enter="transition ease-out duration-100"
+                                x-transition:enter-start="transform opacity-0 scale-95"
+                                x-transition:enter-end="transform opacity-100 scale-100"
+                                x-transition:leave="transition ease-in duration-75"
+                                x-transition:leave-start="transform opacity-100 scale-100"
+                                x-transition:leave-end="transform opacity-0 scale-95"
+                                class="absolute right-0 z-10 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
+                                tabindex="-1" style="display: none;">
+                                <a href="{{ route('profile.show') }}" class="block px-4 py-2 text-sm text-gray-500"
+                                    role="menuitem" tabindex="-1" id="user-menu-item-0">
+                                    Your Profile
+                                </a>
+
+
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <a href="#"
+                                        onclick="event.preventDefault();
+                                    this.closest('form').submit();"
+                                        class="block px-4 py-2 text-sm text-gray-500" role="menuitem" tabindex="-1"
+                                        id="user-menu-item-2">
+                                        Sign out
+                                    </a>
+                                </form>
                             </div>
                         </div>
                     </div>

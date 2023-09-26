@@ -1,6 +1,6 @@
 <div x-data="{ modelOpen: @entangle('modal_open') }">
     <div
-        class="flex flex-1 h-full flex-col relative justify-center bg-gray-700 bg-opacity-80 px-4 py-12 sm:px-6 lg:flex-none lg:px-20 ">
+        class="flex flex-1 h-full flex-col relative justify-center bg-gray-700 bg-opacity-90 px-4 py-12 sm:px-6 lg:flex-none lg:px-20 ">
         <div class="mx-auto w-full max-w-lg lg:w-[60rem]">
             <div>
                 <img class="h-20  rounded-full w-auto" src="{{ asset('images/LOGO.png') }}" class=""
@@ -34,7 +34,7 @@
                             <label for="email" class="block text-sm font-medium leading-6 text-gray-100">Email
                             </label>
                             <div class="mt-2">
-                                <x-input icon="user" id="email" type="email" wire:model="email" required />
+                                <x-input icon="at-symbol" id="email" type="email" wire:model="email" required />
                             </div>
                         </div>
                         <div>
@@ -42,7 +42,7 @@
                                 Number
                             </label>
                             <div class="mt-2">
-                                <x-input icon="user" type="number" wire:model="phone_number" />
+                                <x-input icon="device-mobile" type="number" wire:model="phone_number" />
                             </div>
                         </div>
 

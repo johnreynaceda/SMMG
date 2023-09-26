@@ -1,4 +1,4 @@
-<div>
+<div x-data>
     <div class="grid grid-cols-3 gap-4">
         @forelse ($appointments as $item)
             <div class="bg-white p-5 relative rounded-xl shadow-xl">
@@ -52,7 +52,7 @@
             @endforelse
         </div>
         <x-modal.card title="CHECKUP FORM" fullscreen blur wire:model.defer="view_modal">
-            <div class="mx-auto max-w-7xl ">
+            <div class="mx-auto max-w-7xl " x-ref="printContainer">
                 <div class="border relative rounded-3xl py-5 px-10 shadow-xl">
                     <img src="{{ asset('images/logo.png') }}" class="absolute right-0 bottom-0 opacity-10 h-20"
                         alt="">
@@ -146,7 +146,8 @@
                 <div class="flex justify-end gap-x-4 m-auto max-w-7xl">
                     <div class="flex">
                         <x-button flat label="Cancel" x-on:click="close" />
-
+                        <x-button dark label="Print Form" right-icon="printer"
+                            @click="printOut($refs.printContainer.outerHTML);" />
                     </div>
                 </div>
             </x-slot>

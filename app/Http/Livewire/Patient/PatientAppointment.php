@@ -4,9 +4,11 @@ namespace App\Http\Livewire\Patient;
 
 use Livewire\Component;
 use App\Models\PatientAppointment as Appointment;
+use WireUi\Traits\Actions;
 
 class PatientAppointment extends Component
 {
+    use Actions;
     public $view_modal = false;
     public $is_collected;
     public $appointment_data;
@@ -26,5 +28,20 @@ class PatientAppointment extends Component
         $this->hr_attatchment = $this->appointment_data->hr_attachment;
         $this->bsc_attachment = $this->appointment_data->bsc_attachment;
         $this->view_modal = true;
+    }
+
+    public function cancelAppointment($id)
+    {
+        $data = Appointment::where('id', $id)->first();
+        $data->update([
+            'status' => 'canceled',
+        ]);
+        $this->dialog()->success(
+
+            $title = 'Appointment canceled',
+
+            $description = 'Your appointment set to canceled'
+
+        );
     }
 }

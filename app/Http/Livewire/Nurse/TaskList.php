@@ -19,6 +19,8 @@ class TaskList extends Component implements Forms\Contracts\HasForms
 {
     use Forms\Concerns\InteractsWithForms;
     public $form_modal = false;
+    public $result_data = false;
+    public $is_collected;
     public $appointment_id;
     public $appointment_data;
     public $bp_attachment, $bp, $heart, $hr_attachment, $blood_is_collected, $bsc_attachment, $prescription, $other_info;
@@ -82,5 +84,16 @@ class TaskList extends Component implements Forms\Contracts\HasForms
         DB::commit();
 
         $this->form_modal = false;
+    }
+
+    public function printForm($id)
+    {
+
+        $this->appointment_data = PatientAppointment::where('id', $id)->first()->checkup;
+        $this->is_collected = $this->appointment_data->blood_is_collected;
+        $this->bp_attachment = $this->appointment_data->bp_attachment;
+        $this->hr_attachment = $this->appointment_data->hr_attachment;
+        $this->bsc_attachment = $this->appointment_data->bsc_attachment;
+        $this->result_data = true;
     }
 }

@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'Test User',
             'email' => 'user@gmail.com',
-            'phone_number' => '09489203090',
+            'phone_number' => '11111111111',
             'password' => bcrypt('password'),
         ]);
         User::create([

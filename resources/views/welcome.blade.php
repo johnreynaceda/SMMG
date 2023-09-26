@@ -49,49 +49,51 @@
         </div>
         <!-- Header -->
         <header class="absolute inset-x-0 top-0 z-50">
-            <nav class="flex items-center mx-auto max-w-7xl justify-between p-6 lg:px-8" aria-label="Global">
-                <div class="flex lg:flex-1">
-                    <a href="#" class="-m-1.5 p-1.5">
-                        <span class="sr-only">Your Company</span>
-                        <img class="h-8 w-auto" src="{{ asset('images/logo.png') }}" alt="">
-                    </a>
-                </div>
-                <div class="flex lg:hidden">
-                    <button type="button"
-                        class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-400">
-                        <span class="sr-only">Open main menu</span>
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                            aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                        </svg>
-                    </button>
-                </div>
-                <div class="hidden lg:flex lg:gap-x-12">
-                    <a href="#" class="text-sm font-semibold leading-6 text-white">Home</a>
-                    <a href="#" class="text-sm font-semibold leading-6 text-white">About</a>
-                    <a href="#" class="text-sm font-semibold leading-6 text-white">Contact</a>
-                </div>
-                <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-                    <div class="flex space-x-2 items-center">
-                        <a href="{{ route('login') }}"
-                            class="flex space-x-1 items-center text-white fill-white hover:text-gray-400 hover:fill-gray-400">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4">
-                                <path
-                                    d="M20 22H18V20C18 18.3431 16.6569 17 15 17H9C7.34315 17 6 18.3431 6 20V22H4V20C4 17.2386 6.23858 15 9 15H15C17.7614 15 20 17.2386 20 20V22ZM12 13C8.68629 13 6 10.3137 6 7C6 3.68629 8.68629 1 12 1C15.3137 1 18 3.68629 18 7C18 10.3137 15.3137 13 12 13ZM12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z">
-                                </path>
-                            </svg>
-                            <span>Log In</span>
-                        </a>
-                        <span class="text-white">|</span>
-                        <a href="{{ route('new-account') }}"
-                            class="flex space-x-1 items-center text-white fill-white hover:text-gray-400 hover:fill-gray-400">
-
-                            <span>Sign Up</span>
+            <div class="bg-white">
+                <nav class="flex items-center mx-auto  max-w-7xl justify-between p-6 lg:px-8" aria-label="Global">
+                    <div class="flex lg:flex-1">
+                        <a href="#" class="-m-1.5 p-1.5">
+                            <span class="sr-only">Your Company</span>
+                            <img class="h-8 w-auto" src="{{ asset('images/logo.png') }}" alt="">
                         </a>
                     </div>
-                </div>
-            </nav>
+                    <div class="flex lg:hidden">
+                        <button type="button"
+                            class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-400">
+                            <span class="sr-only">Open main menu</span>
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="hidden lg:flex lg:gap-x-12">
+                        <a href="#" class="text-sm font-semibold leading-6 text-gray- 700">Home</a>
+                        <a href="#" class="text-sm font-semibold leading-6 text-gray- 700">About</a>
+                        <a href="#" class="text-sm font-semibold leading-6 text-gray- 700">Contact</a>
+                    </div>
+                    <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+                        <div class="flex space-x-2 items-center">
+                            <a href="{{ route('login') }}"
+                                class="flex space-x-1 items-center text-gray-700 fill-gray-700 hover:text-gray-400 hover:fill-gray-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4">
+                                    <path
+                                        d="M20 22H18V20C18 18.3431 16.6569 17 15 17H9C7.34315 17 6 18.3431 6 20V22H4V20C4 17.2386 6.23858 15 9 15H15C17.7614 15 20 17.2386 20 20V22ZM12 13C8.68629 13 6 10.3137 6 7C6 3.68629 8.68629 1 12 1C15.3137 1 18 3.68629 18 7C18 10.3137 15.3137 13 12 13ZM12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z">
+                                    </path>
+                                </svg>
+                                <span>Log In</span>
+                            </a>
+                            <span class="text-white">|</span>
+                            <a href="{{ route('new-account') }}"
+                                class="flex space-x-1 items-center text-gray-700 fill-gray-700 hover:text-gray-400 hover:fill-gray-400">
+
+                                <span>Sign Up</span>
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
             <!-- Mobile menu, show/hide based on menu open state. -->
             {{-- <div class="lg:hidden" role="dialog" aria-modal="true">
                 <!-- Background backdrop, show/hide based on slide-over state. -->
@@ -139,7 +141,10 @@
             <!-- Hero section -->
             <div class="relative isolate overflow-hidden  pb-16 pt-14  sm:pb-20">
                 <div class="absolute bottom-0 right-0">
-                    <img src="{{ asset('images/doctor1.png') }}" class="h-[30rem]" alt="">
+                    <img src="{{ asset('images/doctor5.png') }}" class="h-[30rem]" alt="">
+                </div>
+                <div class="absolute bottom-0 right-96">
+                    <img src="{{ asset('images/doctor4.png') }}" class="h-[40rem]" alt="">
                 </div>
                 <img src="{{ asset('images/backgound.png') }}" alt=""
                     class="absolute inset-0 -z-10 h-full w-full  object-cover">
@@ -196,23 +201,6 @@
                                             class="items-center justify-center w-full px-6 py-2.5  text-center text-white duration-200 bg-transparent border-2 border-white rounded-full inline-flex hover:bg-transparent focus:outline-none lg:w-auto focus-visible:outline-black text-sm focus-visible:ring-black">
                                             Learn More
                                         </a>
-                                    </div>
-
-                                    <div class="mt-10 px-8 xl:px-0 flex space-x-3 items-end">
-                                        <a href="">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                                class="h-8 w-8 fill-white">
-                                                <path
-                                                    d="M12.001 2C6.47813 2 2.00098 6.47715 2.00098 12C2.00098 16.9913 5.65783 21.1283 10.4385 21.8785V14.8906H7.89941V12H10.4385V9.79688C10.4385 7.29063 11.9314 5.90625 14.2156 5.90625C15.3097 5.90625 16.4541 6.10156 16.4541 6.10156V8.5625H15.1931C13.9509 8.5625 13.5635 9.33334 13.5635 10.1242V12H16.3369L15.8936 14.8906H13.5635V21.8785C18.3441 21.1283 22.001 16.9913 22.001 12C22.001 6.47715 17.5238 2 12.001 2Z">
-                                                </path>
-                                            </svg>
-                                        </a>
-                                        <a href=""> <svg xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 24 24" class="h-7 w-7 fill-white">
-                                                <path
-                                                    d="M21 16.42V19.9561C21 20.4811 20.5941 20.9167 20.0705 20.9537C19.6331 20.9846 19.2763 21 19 21C10.1634 21 3 13.8366 3 5C3 4.72371 3.01545 4.36687 3.04635 3.9295C3.08337 3.40588 3.51894 3 4.04386 3H7.5801C7.83678 3 8.05176 3.19442 8.07753 3.4498C8.10067 3.67907 8.12218 3.86314 8.14207 4.00202C8.34435 5.41472 8.75753 6.75936 9.3487 8.00303C9.44359 8.20265 9.38171 8.44159 9.20185 8.57006L7.04355 10.1118C8.35752 13.1811 10.8189 15.6425 13.8882 16.9565L15.4271 14.8019C15.5572 14.6199 15.799 14.5573 16.001 14.6532C17.2446 15.2439 18.5891 15.6566 20.0016 15.8584C20.1396 15.8782 20.3225 15.8995 20.5502 15.9225C20.8056 15.9483 21 16.1633 21 16.42Z">
-                                                </path>
-                                            </svg></a>
                                     </div>
                                 </div>
                             </div>

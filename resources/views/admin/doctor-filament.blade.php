@@ -7,7 +7,7 @@
                 @if (request()->routeIs('admin.nurses') == true)
                     <span>{{ $getRecord()->specialization }}</span>
                 @else
-                    <span>{{ $getRecord()->specialization->name }}</span>
+                    <span>{{ $getRecord()->specialization->name ?? '' }}</span>
                 @endif
 
             </h1>

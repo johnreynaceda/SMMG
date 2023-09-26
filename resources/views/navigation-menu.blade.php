@@ -16,19 +16,21 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('about') }}" :active="request()->routeIs('about')">
-                        {{ __('About') }}
-                    </x-nav-link>
-                    <x-nav-link href="{{ route('notification') }}" :active="request()->routeIs('notification')">
-                        {{ __('Notification') }}
-                    </x-nav-link>
+                    @if (auth()->user()->account_type == 'patient')
+                        <x-nav-link href="{{ route('about') }}" :active="request()->routeIs('about')">
+                            {{ __('About') }}
+                        </x-nav-link>
+                        <x-nav-link href="{{ route('notification') }}" :active="request()->routeIs('notification')">
+                            {{ __('Notification') }}
+                        </x-nav-link>
 
-                    <x-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')">
-                        {{ __('Contact') }}
-                    </x-nav-link>
-                    <x-nav-link href="{{ route('my-account') }}" :active="request()->routeIs('my-account')">
-                        {{ __('My Account') }}
-                    </x-nav-link>
+                        <x-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')">
+                            {{ __('Contact') }}
+                        </x-nav-link>
+                        <x-nav-link href="{{ route('my-account') }}" :active="request()->routeIs('my-account')">
+                            {{ __('My Account') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 

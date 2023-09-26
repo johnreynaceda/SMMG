@@ -36,7 +36,7 @@
                     </div>
                     <div class="mt-4 grid grid-cols-2 gap-5">
                         <x-datetime-picker label="Appointment Date" without-time wire:model.defer="appointment_date" />
-                        <x-time-picker label="AM/PM" wire:model.defer="appointment_time" />
+                        {{-- <x-time-picker label="AM/PM" wire:model.defer="appointment_time" /> --}}
                     </div>
                     <div class="mt-3 flex justify-end items-center">
                         <x-button label="Submit Appointment" wire:click="submitApplication" spinner="submitApplication"

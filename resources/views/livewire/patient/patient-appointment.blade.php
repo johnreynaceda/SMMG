@@ -32,6 +32,10 @@
                                         <x-badge rounded label="Declined" negative outline sm />
                                     @break
 
+                                    @case('canceled')
+                                        <x-badge rounded label="Cancelled" negative outline sm />
+                                    @break
+
                                     @default
                                 @endswitch
                             </div>
@@ -53,6 +57,9 @@
                         @if ($appointment->checkup != null)
                             <x-button label="View Details" wire:click="openForm({{ $appointment->id }})"
                                 spinner="openForm({{ $appointment->id }})" rounded negative class="px-6 font-bold" />
+                        @elseif($appointment->status == 'pending')
+                            <x-button label="Cancel Appointment" dark icon="x"
+                                wire:click="cancelAppointment({{ $appointment->id }})" />
                         @else
                         @endif
                     </div>

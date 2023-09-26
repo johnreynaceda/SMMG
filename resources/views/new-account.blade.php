@@ -21,8 +21,8 @@
 
 <body class="font-sans antialiased h-full relative">
 
-    <div class="flex min-h-full bg-gray-800">
-        <img class="absolute inset-0  opacity-30 h-full w-full object-cover" src="{{ asset('images/hospital-bg.jpg') }}"
+    <div class="flex min-h-full ">
+        <img class="absolute inset-0  h-full w-full object-cover" src="{{ asset('images/hospital-bg.jpg') }}"
             alt="">
         <div class="relative hidden w-0 flex-1 lg:block">
             {{-- <img class="absolute inset-0 h-full w-full object-cover"

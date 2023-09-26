@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Slot;
 use Livewire\Component;
 use App\Models\PatientAppointment;
 use Filament\Tables;
@@ -22,6 +23,8 @@ class AdminAppointment extends Component implements Tables\Contracts\HasTable
 {
     use Tables\Concerns\InteractsWithTable;
     use WithFileUploads;
+    public $slot_modal = false;
+    public $count = 0;
 
     protected function getTableQuery(): Builder
     {
@@ -56,6 +59,42 @@ class AdminAppointment extends Component implements Tables\Contracts\HasTable
     {
         return view('livewire.admin.admin-appointment', [
             'appointment_count' => PatientAppointment::count(),
+            'slot' => Slot::first(),
         ]);
+    }
+
+    public function saveDefault()
+    {
+        if (Slot::first() == null) {
+            Slot::create([
+                'default_slot' => $this->count,
+            ]);
+            $this->slot_modal = false;
+        } else {
+            Slot::first()->update([
+                'default_slot' => $this->count,
+            ]);
+            $this->slot_modal = false;
+        }
+    }
+
+    public function add()
+    {
+        $this->count++;
+    }
+    public function minus()
+    {
+        $this->count--;
+    }
+
+    public function openModal()
+    {
+        $data = Slot::count();
+        if ($data >= 1) {
+            $this->count = Slot::first()->default_slot;
+            $this->slot_modal = true;
+        } else {
+            $this->slot_modal = true;
+        }
     }
 }
