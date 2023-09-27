@@ -31,4 +31,7 @@ Route::prefix('patient')
         Route::get('/my-account', function () {
             return view('account');
         })->name('my-account');
+        Route::get('/my-profile', function () {
+            return view('my-profile');
+        })->name('my-profile');
     });
