@@ -93,11 +93,11 @@
                         }
                     },
                     headerToolbar: {
-                        start: 'prev next',
+                        start: false,
                         center: 'title',
-                        end: 'today timeGridWeek dayGridMonth'
+                        end: 'prev next',
                     },
-                    displayEventTime: true,
+                    displayEventTime: false,
                     eventColor: '#E12129',
                     events: {!! json_encode($events) !!},
                     eventClick: function(info) {

@@ -40,7 +40,7 @@ class AdminAppointment extends Component implements Tables\Contracts\HasTable
 
             Tables\Columns\TextColumn::make('user.name')->label('NAME')->searchable(),
             Tables\Columns\TextColumn::make('doctor.user.name')->label('DOCTOR NAME')->searchable(),
-            Tables\Columns\TextColumn::make('doctor.specialization.name')->label('SPECIALIZATION')->searchable(),
+            Tables\Columns\TextColumn::make('condition')->label('CONDITION')->searchable(),
             Tables\Columns\TextColumn::make('appointment_date')->date()->label('APPOINTMENT DATE')->searchable(),
             BadgeColumn::make('status')
                 ->enum([

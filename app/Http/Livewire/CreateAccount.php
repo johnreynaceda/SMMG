@@ -26,7 +26,7 @@ class CreateAccount extends Component
                 'phone_number' => 'required|numeric|digits:11|unique:users,phone_number',
             ]);
             $this->modal_open = true;
-            $verify = SmsOtp::where('phone_number', $this->phone_number)->first();
+            $verify = SmsOtp::where('phone_number', $this->contact)->first();
             if ($verify) {
                 $random = rand(1000, 9999);
                 $verify->update([
@@ -37,8 +37,8 @@ class CreateAccount extends Component
                 $ch = curl_init();
                 $parameters = [
                     'apikey' => $api_key,
-                    'number' => $this->phone_number,
-                    'message' => 'Dear User, your OTP for account verification is ' . $random . '.' . ' Thank you for using our service.',
+                    'number' => $this->contact,
+                    'message' => 'Dear ' . strtoupper($this->firstname) . ', your OTP for account verification is ' . $random . '.' . ' Thank you for using our service.',
                     'sendername' => $sender,
                 ];
                 curl_setopt($ch, CURLOPT_URL, 'https://semaphore.co/api/v4/messages');
@@ -51,7 +51,7 @@ class CreateAccount extends Component
             } else {
                 $random = rand(1000, 9999);
                 SmsOtp::create([
-                    'phone_number' => $this->phone_number,
+                    'phone_number' => $this->contact,
                     'otp' => $random,
                 ]);
                 $api_key = '1aaad08e0678a1c60ce55ad2000be5bd';
@@ -59,8 +59,8 @@ class CreateAccount extends Component
                 $ch = curl_init();
                 $parameters = [
                     'apikey' => $api_key,
-                    'number' => $this->phone_number,
-                    'message' => 'Dear User, your OTP for account verification is ' . $random . '.' . '\n' . 'Thank you for using our service.',
+                    'number' => $this->contact,
+                    'message' => 'Dear ' . strtoupper($this->firstname) . ', your OTP for account verification is ' . $random . '.' . ' Thank you for using our service.',
                     'sendername' => $sender,
                 ];
                 curl_setopt($ch, CURLOPT_URL, 'https://semaphore.co/api/v4/messages');

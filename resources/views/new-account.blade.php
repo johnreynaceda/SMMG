@@ -22,7 +22,7 @@
 <body class="font-sans antialiased h-full relative">
 
     <div class="flex min-h-full ">
-        <img class="absolute inset-0  h-full w-full object-cover" src="{{ asset('images/hospital-bg.jpg') }}"
+        <img class="fixed inset-0  h-full w-full object-cover" src="{{ asset('images/hospital-bg.jpg') }}"
             alt="">
         <div class="relative hidden w-0 flex-1 lg:block">
             {{-- <img class="absolute inset-0 h-full w-full object-cover"
@@ -33,6 +33,7 @@
         <livewire:create-account />
 
     </div>
+    @stack('scripts')
     @livewireScripts
     <x-dialog z-index="z-50" blur="md" align="center" />
 </body>

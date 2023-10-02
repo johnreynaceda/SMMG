@@ -38,7 +38,7 @@
             <swiper-container class="mySwiper" slides-per-view="auto" centered-slides="true" navigation="true"
                 slides-per-view="3" space-between="30" free-mode="true" keyboard="true" pagination="true"
                 space-between="50">
-                <swiper-slide class="w-[40rem] h-96 rounded-2xl relative">
+                <swiper-slide class="w-[35rem] h-56 rounded-2xl relative">
                     <img src="{{ asset('images/diagnostic.jpg') }}"
                         class="object-cover absolute top-0 w-full h-full rounded-2xl" alt="">
                     <div class="relative bg-gray-700 grid place-content-center w-full rounded-2xl bg-opacity-50 p-10">
@@ -46,7 +46,7 @@
                         <a class="mt-2 text-gray-200" href="">Read More</a>
                     </div>
                 </swiper-slide>
-                <swiper-slide class="w-[40rem] h-96 rounded-2xl relative">
+                <swiper-slide class="w-[35rem] h-56 rounded-2xl relative">
                     <img src="{{ asset('images/pedia.jpg') }}"
                         class="object-cover absolute top-0 w-full h-full rounded-2xl" alt="">
                     <div class="relative bg-gray-700 grid place-content-center w-full rounded-2xl bg-opacity-50 p-10">
@@ -54,7 +54,7 @@
                         <a class="mt-2 text-gray-200" href="">Read More</a>
                     </div>
                 </swiper-slide>
-                <swiper-slide class="w-[40rem] h-96 rounded-2xl relative">
+                <swiper-slide class="w-[35rem] h-56 rounded-2xl relative">
                     <img src="{{ asset('images/hemo.jpg') }}"
                         class="object-cover absolute top-0 w-full h-full rounded-2xl" alt="">
                     <div class="relative bg-gray-700 grid place-content-center w-full rounded-2xl bg-opacity-50 p-10">
@@ -100,11 +100,11 @@
                 @forelse ($doctors as $item)
                     <div class="bg-gray-200 h-96 rounded-2xl grid place-content-center">
                         <div class="bg-blue-300 h-56 w-56 rounded-full  overflow-hidden">
-                            @if ($item->image)
-                                <img src="{{ asset('storage/' . $item->image) }}" class="object-cover w-full h-full"
+                            @if ($item->gender == 'Male')
+                                <img src="{{ asset('images/male-doctor.jpg') }}" class="object-cover w-full h-full"
                                     alt="">
                             @else
-                                <img src="{{ asset('images/doctor.png') }}" class="object-cover w-ful h-ful "
+                                <img src="{{ asset('images/female-doctor.jpg') }}" class="object-cover w-ful h-ful "
                                     alt="">
                             @endif
                         </div>
@@ -112,7 +112,14 @@
                             <h1 class="text-2xl  text-center uppercase font-bold text-gray-700">
                                 {{ $item->firstname . ' ' . $item->lastname }}
                             </h1>
-                            <h1 class="text-lg text-center font-medium text-gray-500">{{ $item->specialization->name }}
+                            <h1 class="text-lg text-center uppercase font-medium text-gray-500">
+                                {{-- {{ $item->specialization->name ?? '' }} --}}
+                                @foreach ($item->doctor_specializations as $value)
+                                    {{ $value->specialization->name }}
+                                    @if (!$loop->last)
+                                        /
+                                    @endif
+                                @endforeach
                             </h1>
                         </div>
                         <x-button outline label="Get Appointment"
@@ -120,6 +127,8 @@
                             class="font-semibold mt-2" />
                     </div>
                 @empty
+
+                    <span class="text-lg">No Doctors Available...</span>
                 @endforelse
             </div>
             <div class="mt-2">

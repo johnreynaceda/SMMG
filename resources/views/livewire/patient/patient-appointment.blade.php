@@ -13,7 +13,13 @@
                 <div class="bg-white shadow flex justify-between items-center p-5 px-10 rounded-lg">
                     <div class="flex space-x-3 items-center">
                         <div class="h-32 w-32 rounded-full bg-red-500 overflow-hidden">
-                            <img src="{{ asset('images/doctor.png') }}" class="  rounded-lg" alt="">
+                            @if ($appointment->doctor->gender == 'Male')
+                                <img src="{{ asset('images/male-doctor.jpg') }}" class="object-cover w-full h-full"
+                                    alt="">
+                            @else
+                                <img src="{{ asset('images/female-doctor.jpg') }}" class="object-cover w-ful h-ful "
+                                    alt="">
+                            @endif
                         </div>
                         <div>
                             <div class="flex space-x-3 items-center">
@@ -39,7 +45,14 @@
                                     @default
                                 @endswitch
                             </div>
-                            <h1 class="text-lg text-gray-600">{{ $appointment->doctor->specialization->name }}</h1>
+                            <h1 class="text-lg text-gray-600">
+                                @foreach ($appointment->doctor->doctor_specializations as $value)
+                                    {{ $value->specialization->name }}
+                                    @if (!$loop->last)
+                                        /
+                                    @endif
+                                @endforeach
+                            </h1>
                             <div class="flex space-x-1 items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                     class="h-4 w-4 fill-gray-500">
@@ -48,7 +61,7 @@
                                     </path>
                                 </svg>
                                 <h1 class="text-sm text-gray-600">
-                                    {{ \Carbon\Carbon::parse($appointment->appointment_date)->format('F d, Y h:i A') }}
+                                    {{ \Carbon\Carbon::parse($appointment->appointment_date)->format('F d, Y') }}
                                 </h1>
                             </div>
                         </div>
@@ -57,14 +70,22 @@
                         @if ($appointment->checkup != null)
                             <x-button label="View Details" wire:click="openForm({{ $appointment->id }})"
                                 spinner="openForm({{ $appointment->id }})" rounded negative class="px-6 font-bold" />
+                        @elseif ($appointment->status == 'accepted')
+                            <x-button label="Reschedule" dark icon="calendar"
+                                wire:click="reschedule({{ $appointment->id }})" />
                         @elseif($appointment->status == 'pending')
-                            <x-button label="Cancel Appointment" dark icon="x"
+                            <x-button label="Reschedule" dark icon="calendar"
+                                wire:click="reschedule({{ $appointment->id }})" />
+                            <x-button label="Cancel" negative icon="x"
                                 wire:click="cancelAppointment({{ $appointment->id }})" />
                         @else
                         @endif
                     </div>
                 </div>
                 @empty
+                    <div>
+                        <span class="text-md">No Appointment Available...</span>
+                    </div>
                 @endforelse
 
 
@@ -170,4 +191,31 @@
                 </div>
             </x-slot>
         </x-modal.card>
+
+        <x-modal wire:model.defer="reschedule_modal" align="center">
+
+            <x-card title="Reschedule Appointment">
+                <div>
+                    <h1>Appointment Date</h1>
+                    <h1 class="text-lg font-bold">
+                        {{ \Carbon\Carbon::parse($appointment_data->appointment_date ?? '')->format('F d, Y') }}</h1>
+                </div>
+                <div class="mt-5">
+                    <x-datetime-picker label="Appointment Date" without-time wire:model.defer="new_schedule" />
+                </div>
+                <x-slot name="footer">
+
+                    <div class="flex justify-end gap-x-4">
+
+                        <x-button flat label="Cancel" x-on:click="close" />
+
+                        <x-button dark label="Reschedule" wire:click="saveSchedule" icon="save" />
+
+                    </div>
+
+                </x-slot>
+
+            </x-card>
+
+        </x-modal>
     </div>

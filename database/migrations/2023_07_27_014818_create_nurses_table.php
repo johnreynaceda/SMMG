@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->string('firstname');
             $table->string('middlename');
             $table->string('lastname');
-            $table->string('specialization');
+            $table->string('gender');
             $table->string('image_path')->nullable();
             $table->timestamps();
         });

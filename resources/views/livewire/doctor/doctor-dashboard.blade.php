@@ -28,7 +28,9 @@
                 <div>
                     <h1 class="text-2xl font-bold">
                         @php
-                            $count = \App\Models\PatientAppointment::where('doctor_id', auth()->user()->doctor->id)->count();
+                            $count = \App\Models\PatientAppointment::where('doctor_id', auth()->user()->doctor->id)
+                                ->where('status', 'accepted')
+                                ->count();
                         @endphp
                         {{ $count }}
                     </h1>
@@ -37,7 +39,7 @@
             </div>
         </div>
     </section>
-    <div class="mt-10 grid grid-cols-2 gap-5">
+    <div class="mt-10 grid grid-cols-1 gap-5">
         <div class="bg-white rounded-lg p-5">
             <header class="flex justify-between items-center">
                 <h1 class="text-[#617E5B] uppercase font-semibold">Appointment Request</h1>
@@ -86,7 +88,7 @@
 
             </div>
         </div>
-        <div class="bg-white rounded-lg p-5">
+        {{-- <div class="bg-white rounded-lg p-5">
             <header class="flex justify-between items-center">
                 <h1 class="text-[#617E5B] uppercase font-semibold">Today's Appointment</h1>
                 <a href="" class="text-sm text-[#617E5B]/50 hover:text-[#617E5B]">See All</a>
@@ -109,7 +111,7 @@
                     </div>
                 @endforelse
             </div>
-        </div>
+        </div> --}}
     </div>
     <x-modal wire:model.defer="view_modal" align="center">
         <x-card title="Appointment Information">

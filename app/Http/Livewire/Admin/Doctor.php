@@ -2,9 +2,11 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\DoctorSpecialization;
 use App\Models\Specialization;
 use App\Models\User;
 use Filament\Tables\Actions\Action;
+use Illuminate\Console\Scheduling\Schedule;
 use Livewire\Component;
 use App\Models\Doctor as doctorModel;
 use Filament\Tables;
@@ -38,7 +40,8 @@ class Doctor extends Component implements Tables\Contracts\HasTable
         return [
 
             Action::make('new_doctor')->label('Add New Doctor')->button()->icon('heroicon-o-plus-circle')->action(function ($record, $data) {
-                // dd($data['attachment']);
+
+
                 DB::beginTransaction();
                 $user = User::create([
                     'name' => $data['firstname'] . ' ' . $data['lastname'],
@@ -48,17 +51,22 @@ class Doctor extends Component implements Tables\Contracts\HasTable
                     'account_type' => 'doctor',
                 ]);
 
-                doctorModel::create([
+                $doctor = doctorModel::create([
                     'user_id' => $user->id,
                     'firstname' => $data['firstname'],
                     'middlename' => $data['middlename'],
                     'lastname' => $data['lastname'],
-                    'specialization_id' => $data['specialization'],
-                    'schedule' => $data['schedule'],
+                    'gender' => $data['gender'],
+                    'schedule' => implode('/', $data['schedule']),
 
                 ]);
 
-
+                foreach ($data['specialization'] as $key => $value) {
+                    DoctorSpecialization::create([
+                        'doctor_id' => $doctor->id,
+                        'specialization_id' => $value,
+                    ]);
+                }
                 DB::commit();
                 Notification::make()
                     ->title('Added Successfully')
@@ -70,9 +78,22 @@ class Doctor extends Component implements Tables\Contracts\HasTable
                                 TextInput::make('firstname')->label('First Name')->required(),
                                 TextInput::make('middlename')->label('Middle Name')->required(),
                                 TextInput::make('lastname')->label('Last Name')->required(),
+                                Select::make('gender')->required()
+                                    ->options([
+                                        'Male' => 'Male',
+                                        'Female' => 'Female',
+                                    ]),
                                 TextInput::make('phone_number')->label('Phone Number')->numeric()->required(),
-                                Select::make('specialization')->options(Specialization::pluck('name', 'id')),
-                                TextInput::make('schedule')->label('Schedule')->required(),
+                                Select::make('specialization')->options(Specialization::pluck('name', 'id'))->multiple()->required(),
+                                Select::make('schedule')->options([
+                                    'Monday' => 'Monday',
+                                    'Tuesday' => 'Tuesday',
+                                    'Wednesday' => 'Wednesday',
+                                    'Thursday' => 'Thursday',
+                                    'Friday' => 'Friday',
+                                    'Saturday' => 'Saturday',
+                                    'Sunday' => 'Sunday',
+                                ])->multiple(),
                             ])
                             ->columns(3),
                         Fieldset::make('ACCOUNT INFORMATION')

@@ -10,13 +10,15 @@ class PatientAppointment extends Component
 {
     use Actions;
     public $view_modal = false;
+    public $reschedule_modal = false;
+    public $appointment_id;
     public $is_collected;
     public $appointment_data;
-    public $bp_attachment, $hr_attatchment, $bsc_attachment;
+    public $bp_attachment, $hr_attatchment, $bsc_attachment, $new_schedule;
     public function render()
     {
         return view('livewire.patient.patient-appointment', [
-            'appointments' => Appointment::where('user_id', auth()->user()->id)->get(),
+            'appointments' => Appointment::where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->get(),
         ]);
     }
 
@@ -43,5 +45,32 @@ class PatientAppointment extends Component
             $description = 'Your appointment set to canceled'
 
         );
+    }
+
+    public function reschedule($id)
+    {
+        $data = Appointment::where('id', $id)->first();
+        $this->appointment_id = $id;
+        $this->appointment_data = $data;
+        $this->reschedule_modal = true;
+    }
+
+    public function saveSchedule()
+    {
+        $data = Appointment::where('id', $this->appointment_id)->first();
+
+        $data->update([
+            'appointment_date' => $this->new_schedule,
+        ]);
+        $this->dialog()->success(
+
+            $title = 'Appointment Rescheduled',
+
+            $description = 'Your appointment has beeb scheduled'
+
+        );
+        $this->reschedule_modal = false;
+
+
     }
 }

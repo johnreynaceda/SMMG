@@ -17,9 +17,9 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     @if (auth()->user()->account_type == 'patient')
-                        <x-nav-link href="{{ route('about') }}" :active="request()->routeIs('about')">
+                        {{-- <x-nav-link href="{{ route('about') }}" :active="request()->routeIs('about')">
                             {{ __('About') }}
-                        </x-nav-link>
+                        </x-nav-link> --}}
                         <x-nav-link href="{{ route('notification') }}" :active="request()->routeIs('notification')">
                             {{ __('Notification') }}
                         </x-nav-link>

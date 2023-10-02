@@ -17,6 +17,7 @@ use Livewire\WithFileUploads;
 use Filament\Tables\Columns\Layout\Stack;
 use Filament\Notifications\Notification;
 use DB;
+use Filament\Forms\Components\Select;
 
 class Nurses extends Component implements Tables\Contracts\HasTable
 {
@@ -51,7 +52,7 @@ class Nurses extends Component implements Tables\Contracts\HasTable
                     'firstname' => $data['firstname'],
                     'middlename' => $data['middlename'],
                     'lastname' => $data['lastname'],
-                    'specialization' => $data['specialization'],
+                    'gender' => $data['gender'],
                     // 'image_path' => $data['attachment'][0]->store('doctor_attachments', 'public'),
     
                 ]);
@@ -67,7 +68,11 @@ class Nurses extends Component implements Tables\Contracts\HasTable
                                 TextInput::make('middlename')->label('Middle Name')->required(),
                                 TextInput::make('lastname')->label('Last Name')->required(),
                                 TextInput::make('phone_number')->label('Phone Number')->numeric()->required(),
-                                TextInput::make('specialization')->label('Specialization')->required(),
+                                Select::make('gender')->required()
+                                    ->options([
+                                        'Male' => 'Male',
+                                        'Female' => 'Female',
+                                    ]),
                                 // FileUpload::make('attachment')->label('Attachment')->multiple()->required(),
                             ])
                             ->columns(3),
@@ -90,7 +95,7 @@ class Nurses extends Component implements Tables\Contracts\HasTable
 
         return [
 
-            ViewColumn::make('name')->label('FULLNAME')->view('admin.doctor-filament')->searchable(['firstname', 'middlename', 'lastname', 'specialization']),
+            ViewColumn::make('name')->label('FULLNAME')->view('admin.doctor-filament')->searchable(['firstname', 'middlename', 'lastname']),
             Tables\Columns\TextColumn::make('user.email')->label('EMAIL')->searchable(),
             Tables\Columns\TextColumn::make('user.phone_number')->label('PHONE NUMBER')->searchable(),
             Tables\Columns\TextColumn::make('created_at')->label('CREATED DATE')->date()->searchable(),

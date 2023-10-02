@@ -38,7 +38,9 @@
                                         $count = 0;
                                         $count = \App\Models\PatientAppointment::where('status', 'accepted')
                                             ->whereHas('doctor', function ($query) use ($item) {
-                                                $query->where('specialization_id', $item->id);
+                                                $query->whereHas('doctor_specializations', function ($query) use ($item) {
+                                                    $query->where('specialization_id', $item->id);
+                                                });
                                             })
                                             ->count();
                                     @endphp
@@ -61,29 +63,33 @@
                 <h1 class="text-xl font-bold text-gray-600"></h1>
             </header>
             <div class="mt-3">
-                <canvas id="appointmentsChart" width="400" height="200"></canvas>
+                <canvas id="barChart" width="400" height="200"></canvas>
                 <script>
-                    // Access the data passed from the controller
-                    var graphData = @json($graphData);
+                    // Data from your query
+                    const count = <?php echo $count; ?>;
+                    const specializationName = <?php echo json_encode($item->name); ?>;
 
-                    var ctx = document.getElementById('appointmentsChart').getContext('2d');
-                    var myChart = new Chart(ctx, {
+                    // Create a bar chart
+                    const ctx = document.getElementById('barChart').getContext('2d');
+                    const barChart = new Chart(ctx, {
                         type: 'bar',
                         data: {
-                            labels: graphData.map(item => item.name),
+                            labels: [specializationName], // Label for the specialization
                             datasets: [{
-                                label: 'Appointments in the Last 7 Days',
-                                data: graphData.map(item => item.appointment_count),
-                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                borderColor: 'rgba(75, 192, 192, 1)',
-                                borderWidth: 1
-                            }]
+                                label: 'Appointment Count',
+                                data: [count], // Count of accepted appointments
+                                backgroundColor: 'rgba(54, 162, 235, 0.6)', // Blue color for the bar
+                                borderWidth: 1,
+                            }],
                         },
                         options: {
                             scales: {
                                 y: {
                                     beginAtZero: true,
-                                    stepSize: 1
+                                    title: {
+                                        display: true,
+                                        text: 'Appointment Count'
+                                    }
                                 }
                             }
                         }

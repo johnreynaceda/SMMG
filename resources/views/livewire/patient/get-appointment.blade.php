@@ -4,13 +4,13 @@
             <div class="div border rounded-lg relative p-5 overflow-hidden">
                 <img src="{{ asset('images/logo.png') }}" class="absolute w-full bg-cover bottom-0 opacity-5"
                     alt="">
-                {{-- <img src="" > --}}
-                @if ($doctor_data->image_path)
-                    <img src="{{ asset('storage/' . $item->image) }}"
-                        class="h-40 w-72 rounded-lg relative  object-cover bg-blue-500" alt="" alt="">
+
+                @if ($doctor_data->gender == 'Male')
+                    <img src="{{ asset('images/male-doctor.jpg') }}"
+                        class="h-40 w-72 rounded-lg relative  object-cover bg-blue-500" alt="">
                 @else
-                    <img src="{{ asset('images/doctor.png') }}"
-                        class="h-40 w-72 rounded-lg object-cover relative bg-blue-500" alt="" alt="">
+                    <img src="{{ asset('images/female-doctor.jpg') }}"
+                        class="h-40 w-72 rounded-lg relative  object-cover bg-blue-500" alt="">
                 @endif
                 <div class="mt-2">
                     <center>
@@ -18,7 +18,15 @@
                             {{ $doctor_data->firstname . ' ' . $doctor_data->lastname }}
                         </h1>
                         <div class="mt-1">
-                            <h1 class="text-gray-700 ">{{ $doctor_data->specialization->name }}</h1>
+                            <h1 class="text-gray-700 uppercase ">
+                                {{-- <h1 class="text-gray-700 ">{{ $doctor_data->specialization->name }}</h1> --}}
+                                @foreach ($doctor_data->doctor_specializations as $item)
+                                    {{ $item->specialization->name }}
+                                    @if (!$loop->last)
+                                        /
+                                    @endif
+                                @endforeach
+                            </h1>
                         </div>
                         <div class="mt-1">
                             <h1 class="text-gray-700 ">({{ $doctor_data->schedule }})</h1>
@@ -34,9 +42,15 @@
                     <div>
                         {{ $this->form }}
                     </div>
-                    <div class="mt-4 grid grid-cols-2 gap-5">
-                        <x-datetime-picker label="Appointment Date" without-time wire:model.defer="appointment_date" />
-                        {{-- <x-time-picker label="AM/PM" wire:model.defer="appointment_time" /> --}}
+                    <div class="mt-4 grid grid-cols-2 items-end gap-5">
+                        <x-datetime-picker class="h-12" label="Appointment Date" without-time
+                            wire:model="appointment_date" :min="now()" :max="now()->endOfMonth()" />
+
+                        <div class="text-xl" x-animate>
+                            @if ($appointment_date)
+                                Remaining Slots: {{ $slots }}
+                            @endif
+                        </div>
                     </div>
                     <div class="mt-3 flex justify-end items-center">
                         <x-button label="Submit Appointment" wire:click="submitApplication" spinner="submitApplication"

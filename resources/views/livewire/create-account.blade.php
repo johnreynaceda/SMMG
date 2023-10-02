@@ -1,27 +1,32 @@
 <div x-data="{ modelOpen: @entangle('modal_open') }">
     <div
-        class="flex flex-1 h-full flex-col relative justify-center bg-gray-700 bg-opacity-90 px-4 py-12 sm:px-6 lg:flex-none lg:px-20 ">
-        <div class="mx-auto w-full max-w-lg lg:w-[60rem]">
-            <div>
-                <img class="h-20  rounded-full w-auto" src="{{ asset('images/LOGO.png') }}" class=""
-                    alt="Your Company">
-                <h2 class="mt-3 text-2xl font-bold leading-9 tracking-tight text-main text-white">CREATE YOUR
-                    ACCOUNT</h2>
-                <p class="mt-2 text-sm leading-6 text-gray-200">
-                    Please input your data correctly.
-                </p>
-            </div>
+        class="flex flex-1 h-full flex-col relative justify-center bg-gray-700 bg-opacity-90 px-4  sm:px-6 lg:flex-none lg:px-10 ">
+        <div class="mx-auto w-full max-w-xl lg:w-[60rem]">
 
-            <div class="mt-10">
-                <div>
-                    <x-validation-errors class="mb-4" />
+
+            <div class="my-10">
+
+                <div class="bg-white px-5 py-2 pb-5  rounded-xl">
+                    <div class="flex mb-10 justify-center items-center">
+                        <img class="h-20   rounded-full w-auto" src="{{ asset('images/LOGO.png') }}" class=""
+                            alt="Your Company">
+                    </div>
+
+                    <h2 class=" text-2xl font-bold text-center leading-9 tracking-tight text-main text-gray-700">
+                        CREATE
+                        YOUR
+                        ACCOUNT</h2>
+                    <p class="mt-5 mb-10  leading-6 text-red-600">
+                        Please input your data correctly.
+                    </p>
+                    {{-- <x-validation-errors class="mb-4" />
 
                     @if (session('status'))
                         <div class="mb-4 font-medium text-sm text-green-600">
                             {{ session('status') }}
                         </div>
-                    @endif
-                    <form method="POST" action="{{ route('login') }}" class="space-y-6">
+                    @endif --}}
+                    {{-- <form method="POST" action="{{ route('login') }}" class="space-y-6">
                         @csrf
                         <div>
                             <label for="email" class="block text-sm font-medium leading-6 text-gray-100">Name
@@ -74,7 +79,9 @@
                                         class="hover:text-green-500"> Sign In</a></p>
                             </div>
                         </div>
-                    </form>
+                    </form> --}}
+
+                    <livewire:patient-register />
                 </div>
             </div>
         </div>

@@ -102,11 +102,12 @@
                         <form method="POST" action="{{ route('login') }}" class="space-y-6">
                             @csrf
                             <div>
-                                <label for="email" class="block text-sm font-medium leading-6 text-gray-100">Phone
+                                <label for="email" class="block text-sm font-medium leading-6 text-gray-100">Email
+                                    or Phone
                                     Number</label>
                                 <div class="mt-2">
-                                    <x-input icon="user" id="phone_number" type="number" name="phone_number"
-                                        :value="old('phone_number')" required autofocus autocomplete="phone_number" />
+                                    <x-input icon="user" type="text" name="identify" :value="old('identify')" required
+                                        autofocus autocomplete="identify" />
                                 </div>
                             </div>
 

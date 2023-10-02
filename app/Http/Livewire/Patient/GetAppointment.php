@@ -21,7 +21,11 @@ class GetAppointment extends Component implements Forms\Contracts\HasForms
     use Forms\Concerns\InteractsWithForms;
     public $doctor_id;
 
+    public $disabledWeeks = ['Monday', 'Tuesday', ' Wednesday', ' Thursday', ' Friday'];
+
     public $condition, $appointment_date, $appointment_time;
+
+    protected $listeners = ['myDate' => 'getDate'];
 
     public function mount()
     {
@@ -41,6 +45,12 @@ class GetAppointment extends Component implements Forms\Contracts\HasForms
 
         return view('livewire.patient.get-appointment', [
             'doctor_data' => Doctor::where('id', $this->doctor_id)->first(),
+            'slots' => (Slot::first()->default_slot ?? 0) - PatientAppointment::when(
+                $this->appointment_date,
+                function ($record) {
+                    return $record->whereDate('appointment_date', $this->appointment_date)->where('status', 'accepted')->get();
+                }
+            )->count(),
         ]);
     }
 
@@ -52,7 +62,7 @@ class GetAppointment extends Component implements Forms\Contracts\HasForms
         ]);
 
         $slot = Slot::first()->default_slot;
-        $date = PatientAppointment::whereDate('appointment_date', $this->appointment_date)->where('doctor_id', $this->doctor_id)->count();
+        $date = PatientAppointment::whereDate('appointment_date', $this->appointment_date)->where('status', 'accepted')->where('doctor_id', $this->doctor_id)->count();
 
         if ($date < $slot) {
             PatientAppointment::create([
@@ -80,4 +90,6 @@ class GetAppointment extends Component implements Forms\Contracts\HasForms
 
 
     }
+
+
 }

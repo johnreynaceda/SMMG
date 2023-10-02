@@ -15,7 +15,7 @@ class DoctorDashboard extends Component
     public function render()
     {
         return view('livewire.doctor.doctor-dashboard', [
-            'appointments' => PatientAppointment::where('doctor_id', auth()->user()->doctor->id)->get()->take(5),
+            'appointments' => PatientAppointment::where('doctor_id', auth()->user()->doctor->id)->get()->where('status', 'pending')->take(5),
             'todays' => PatientAppointment::where('doctor_id', auth()->user()->doctor->id)->where('status', 'accepted')->whereDate('appointment_date', now())->get()->take(5),
         ]);
     }

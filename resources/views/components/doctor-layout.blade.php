@@ -55,7 +55,13 @@
                     <div class="flex flex-col flex-grow px-4 mt-5">
                         <div class=" mt-5 grid place-content-center">
                             <div class="h-28 w-28 overflow-hidden bg-white rounded-full">
-                                <img src="{{ asset('images/doctor.png') }}" class="h-full w-full" alt="">
+                                @if (auth()->user()->doctor->gender == 'male')
+                                    <img src="{{ asset('images/male-doctor.jpg') }}" class="h-full w-full"
+                                        alt="">
+                                @else
+                                    <img src="{{ asset('images/female-doctor.jpg') }}" class="h-full w-full"
+                                        alt="">
+                                @endif
                             </div>
                         </div>
                         <center class="my-2 mb-5">
@@ -134,19 +140,25 @@
         </div>
         <div class="flex flex-col flex-1 w-0 overflow-hidden">
             <main class="relative flex-1 overflow-y-auto focus:outline-none">
-                <div class="border-b sticky top-0 z-50 bg-white py-4">
+                <div class="border-b sticky top-0 z-10 bg-white py-4">
                     <div class="flex justify-between items-center px-10">
                         <h1 class="text-2xl font-bold text-gray-700">Welcome {{ auth()->user()->name }}!</h1>
                         <div class="relative flex-shrink-0 ml-5" @click.away="open = false" x-data="{ open: false }">
                             <div>
                                 <button @click="open = !open" class="flex space-x-3 items-center group">
-                                    <img src="{{ asset('images/doctor.png') }}"
-                                        class="h-12 w-12 rounded-full object-cover bg-red-500" alt="">
+                                    @if (auth()->user()->doctor->gender == 'male')
+                                        <img src="{{ asset('images/male-doctor.jpg') }}"
+                                            class="h-12 w-12 rounded-full object-cover " alt="">
+                                    @else
+                                        <img src="{{ asset('images/female-doctor.jpg') }}"
+                                            class="h-12 w-12 rounded-full object-cover " alt="">
+                                    @endif
                                     <div class="flex space-x-5 items-center ">
                                         <div class="flex flex-col text-left">
                                             <h1 class="font-bold group-hover:text-blue-700 uppercase">
                                                 {{ auth()->user()->name }}</h1>
-                                            <span class="leading-3 text-gray-500 text-sm">Administrator</span>
+                                            <span
+                                                class="leading-3 text-gray-500 text-sm">{{ Str::ucfirst(auth()->user()->account_type) }}</span>
                                         </div>
                                         <div>
                                             <svg :class="{ 'rotate-180': open, 'rotate-0': !open }"

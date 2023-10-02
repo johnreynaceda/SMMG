@@ -38,26 +38,26 @@ class AdminDashboard extends Component implements Tables\Contracts\HasTable
     public function render()
     {
 
-        $today = Carbon::now();
-        $oneWeekAgo = $today->copy()->subWeek();
+        // $today = Carbon::now();
+        // $oneWeekAgo = $today->copy()->subWeek();
 
-        $this->graphData = Specialization::whereHas('doctors', function ($query) use ($today, $oneWeekAgo) {
-            $query->whereHas('patient_appointments', function ($query) use ($today, $oneWeekAgo) {
-                $query->whereBetween('created_at', [$oneWeekAgo, $today]);
-            });
-        })
-            ->get();
+        // $this->graphData = Specialization::whereHas('doctors', function ($query) use ($today, $oneWeekAgo) {
+        //     $query->whereHas('patient_appointments', function ($query) use ($today, $oneWeekAgo) {
+        //         $query->whereBetween('created_at', [$oneWeekAgo, $today]);
+        //     });
+        // })
+        //     ->get();
 
-        foreach ($this->graphData as $specialization) {
-            $appointmentCount = 0;
-            foreach ($specialization->doctors as $doctor) {
-                $appointmentCount += $doctor->patient_appointments()
-                    ->where('status', 'accepted')
-                    ->whereBetween('created_at', [$oneWeekAgo, $today])
-                    ->count();
-            }
-            $specialization->appointment_count = $appointmentCount;
-        }
+        // foreach ($this->graphData as $specialization) {
+        //     $appointmentCount = 0;
+        //     foreach ($specialization->doctors as $doctor) {
+        //         $appointmentCount += $doctor->patient_appointments()
+        //             ->where('status', 'accepted')
+        //             ->whereBetween('created_at', [$oneWeekAgo, $today])
+        //             ->count();
+        //     }
+        //     $specialization->appointment_count = $appointmentCount;
+        // }
 
 
         return view('livewire.admin.admin-dashboard', [

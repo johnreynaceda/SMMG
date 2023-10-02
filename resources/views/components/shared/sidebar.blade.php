@@ -11,7 +11,7 @@
                                         Applications
                                     </p>
                                     <ul>
-                                        <li>
+                                        {{-- <li>
                                             <a class="{{ request()->routeIs('account') || request()->routeIs('my-profile') ? 'bg-gray-100 scale-95 ' : '' }} inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500"
                                                 href="{{ route('my-profile') }}">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -24,7 +24,7 @@
                                                     My Profile
                                                 </span>
                                             </a>
-                                        </li>
+                                        </li> --}}
                                         <li>
                                             <a class="{{ request()->routeIs('account') || request()->routeIs('my-account') ? 'bg-gray-100 scale-95 ' : '' }} inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500"
                                                 href="{{ route('account') }}">

@@ -1,4 +1,4 @@
-<div x-data>
+{{-- <div x-data>
     <div class="grid grid-cols-3 gap-4">
         @forelse ($appointments as $item)
             <div class="bg-white p-5 relative rounded-xl shadow-xl">
@@ -47,7 +47,7 @@
             </div>
             @empty
                 <div class="mt-5 col-span-3">
-                    <h1 class="text-gray-600 font-medium text-xl text-center">No Appointment Request...</h1>
+                    <h1 class="text-gray-600 font-medium text-xl text-center">No Appointment Check-Up Result...</h1>
                 </div>
             @endforelse
         </div>
@@ -152,4 +152,8 @@
                 </div>
             </x-slot>
         </x-modal.card>
-    </div>
+    </div> --}}
+
+<div>
+    {{ $this->table }}
+</div>
