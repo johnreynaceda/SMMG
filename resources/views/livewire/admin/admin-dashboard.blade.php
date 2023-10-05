@@ -34,7 +34,7 @@
                             <h1 class="text-xl font-bold text-gray-700">{{ $item->name }}</h1>
                             <div class="mt-10 flex justify-between items-center">
                                 <h1 class="text-2xl font-black text-green-700">
-                                    @php
+                                    {{-- @php
                                         $count = 0;
                                         $count = \App\Models\PatientAppointment::where('status', 'accepted')
                                             ->whereHas('doctor', function ($query) use ($item) {
@@ -44,7 +44,7 @@
                                             })
                                             ->count();
                                     @endphp
-                                    {{ $count }}
+                                    {{ $count }} --}}
                                 </h1>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                     class="h-7 w-7 fill-green-700">
@@ -64,7 +64,7 @@
             </header>
             <div class="mt-3">
                 <canvas id="barChart" width="400" height="200"></canvas>
-                <script>
+                {{-- <script>
                     // Data from your query
                     const count = <?php echo $count; ?>;
                     const specializationName = <?php echo json_encode($item->name); ?>;
@@ -94,7 +94,7 @@
                             }
                         }
                     });
-                </script>
+                </script> --}}
             </div>
         </div>
     </div>
