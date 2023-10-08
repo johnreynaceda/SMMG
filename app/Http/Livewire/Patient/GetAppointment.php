@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Patient;
 
 use App\Models\Doctor;
+use App\Models\DoctorSpecialization;
 use App\Models\PatientAppointment;
 use App\Models\Slot;
 use Livewire\Component;
@@ -20,6 +21,7 @@ class GetAppointment extends Component implements Forms\Contracts\HasForms
     use Actions;
     use Forms\Concerns\InteractsWithForms;
     public $doctor_id;
+    public $specialization_id;
 
     public $disabledWeeks = ['Monday', 'Tuesday', ' Wednesday', ' Thursday', ' Friday'];
 
@@ -51,6 +53,7 @@ class GetAppointment extends Component implements Forms\Contracts\HasForms
                     return $record->whereDate('appointment_date', $this->appointment_date)->where('status', 'accepted')->get();
                 }
             )->count(),
+            'specializations' => DoctorSpecialization::where('doctor_id', $this->doctor_id)->get(),
         ]);
     }
 
@@ -59,6 +62,7 @@ class GetAppointment extends Component implements Forms\Contracts\HasForms
         $this->validate([
             'condition' => 'required',
             'appointment_date' => 'required',
+            'specialization_id' => 'required',
         ]);
 
         $slot = Slot::first()->default_slot;
@@ -69,6 +73,7 @@ class GetAppointment extends Component implements Forms\Contracts\HasForms
                 'user_id' => auth()->user()->id,
                 'doctor_id' => $this->doctor_id,
                 'condition' => $this->condition,
+                'specialization_id' => $this->specialization_id,
                 'appointment_date' => \Carbon\Carbon::parse(
                     $this->appointment_date
                 )->format('Y-m-d'),

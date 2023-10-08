@@ -16,7 +16,10 @@ return new class extends Migration {
             $table->foreignId('doctor_id');
             $table->longText('condition');
             $table->dateTime('appointment_date');
+            $table->foreignId('specialization_id');
             $table->string('status')->default('pending');
+            $table->boolean('is_rescheduled')->default(false);
+            $table->longText('reason')->nullable();
             $table->timestamps();
         });
     }

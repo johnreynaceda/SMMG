@@ -42,10 +42,18 @@
                     <div>
                         {{ $this->form }}
                     </div>
-                    <div class="mt-4 grid grid-cols-2 items-end gap-5">
+                    <div class="mt-4 grid grid-cols-3 items-end gap-5">
                         <x-datetime-picker class="h-12" label="Appointment Date" without-time
                             wire:model="appointment_date" :min="now()" :max="now()->endOfMonth()" />
 
+                        <x-native-select label="Specialization" class="h-12" wire:model="specialization_id">
+                            <option>Select an Option</option>
+                            @foreach ($specializations as $specialization)
+                                <option value="{{ $specialization->specialization->id }}">
+                                    {{ $specialization->specialization->name }}
+                                </option>
+                            @endforeach
+                        </x-native-select>
                         <div class="text-xl" x-animate>
                             @if ($appointment_date)
                                 Remaining Slots: {{ $slots }}

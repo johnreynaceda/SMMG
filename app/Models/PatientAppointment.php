@@ -25,4 +25,9 @@ class PatientAppointment extends Model
         return $this->belongsTo(Doctor::class);
     }
 
+    public function specialization()
+    {
+        return $this->belongsTo(Specialization::class);
+    }
+
 }

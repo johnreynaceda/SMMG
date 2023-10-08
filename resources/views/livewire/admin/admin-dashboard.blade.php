@@ -34,17 +34,13 @@
                             <h1 class="text-xl font-bold text-gray-700">{{ $item->name }}</h1>
                             <div class="mt-10 flex justify-between items-center">
                                 <h1 class="text-2xl font-black text-green-700">
-                                    {{-- @php
+                                    @php
                                         $count = 0;
                                         $count = \App\Models\PatientAppointment::where('status', 'accepted')
-                                            ->whereHas('doctor', function ($query) use ($item) {
-                                                $query->whereHas('doctor_specializations', function ($query) use ($item) {
-                                                    $query->where('specialization_id', $item->id);
-                                                });
-                                            })
+                                            ->where('specialization_id', $item->id)
                                             ->count();
                                     @endphp
-                                    {{ $count }} --}}
+                                    {{ $count }}
                                 </h1>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                     class="h-7 w-7 fill-green-700">
@@ -63,38 +59,56 @@
                 <h1 class="text-xl font-bold text-gray-600"></h1>
             </header>
             <div class="mt-3">
-                <canvas id="barChart" width="400" height="200"></canvas>
-                {{-- <script>
-                    // Data from your query
-                    const count = <?php echo $count; ?>;
-                    const specializationName = <?php echo json_encode($item->name); ?>;
+                <canvas id="specializationChart" width="400" height="200"></canvas>
+                <script>
+                    document.addEventListener('livewire:load', function() {
+                        const ctx = document.getElementById('specializationChart').getContext('2d');
+                        $randomColors = [
+                            "#FF5733",
+                            "#E50B14",
+                            "#FFAA33",
+                            "#D900F7",
+                            "#3A65A5",
+                            "#2DCD7A",
+                            "#FFD700",
+                            "#00FFFF",
+                            "#FF33A5",
+                            "#00A86B",
+                            "#FF5733",
+                            "#E50B14",
+                            "#FFAA33",
+                            "#D900F7",
+                            "#3A65A5",
+                            "#2DCD7A",
+                            "#FFD700",
+                            "#00FFFF",
+                            "#FF33A5",
+                            "#00A86B"
+                        ];
+                        // Create the chart using the chartData property
+                        const chart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: @json($chartData['labels']),
+                                datasets: [{
+                                    label: 'Appointments Count',
+                                    data: @json($chartData['data']),
+                                    backgroundColor: $randomColors,
 
-                    // Create a bar chart
-                    const ctx = document.getElementById('barChart').getContext('2d');
-                    const barChart = new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: [specializationName], // Label for the specialization
-                            datasets: [{
-                                label: 'Appointment Count',
-                                data: [count], // Count of accepted appointments
-                                backgroundColor: 'rgba(54, 162, 235, 0.6)', // Blue color for the bar
-                                borderWidth: 1,
-                            }],
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true,
-                                    title: {
-                                        display: true,
-                                        text: 'Appointment Count'
+                                    borderColor: 'rgba(75, 192, 192, 1)',
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
                                     }
                                 }
                             }
-                        }
+                        });
                     });
-                </script> --}}
+                </script>
             </div>
         </div>
     </div>

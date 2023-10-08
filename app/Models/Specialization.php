@@ -20,4 +20,9 @@ class Specialization extends Model
     {
         return $this->hasMany(DoctorSpecialization::class);
     }
+
+    public function patient_appointments()
+    {
+        return $this->hasMany(PatientAppointment::class);
+    }
 }

@@ -46,7 +46,7 @@ class DoctorDashboard extends Component
         $parameters = [
             'apikey' => $api_key,
             'number' => $appointment->user->phone_number,
-            'message' => 'Dear User, Your Appointment for Dr.' . $appointment->doctor->user->name . ' has been approved.' . 'See you there and be on time! ' . \Carbon\Carbon::parse($appointment->appointment_date)->format('F d, Y') . ' Thank you for using our service.',
+            'message' => 'Dear ' . $appointment->user->name . ', Your Appointment for Dr.' . $appointment->doctor->user->name . ' has been approved.' . ' See you there and be on time! ' . \Carbon\Carbon::parse($appointment->appointment_date)->format('F d, Y') . ' Thank you for using our service.',
             'sendername' => $sender,
         ];
         curl_setopt($ch, CURLOPT_URL, 'https://semaphore.co/api/v4/messages');
