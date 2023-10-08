@@ -55,7 +55,7 @@
                     <div class="flex flex-col flex-grow px-4 mt-5">
                         <div class=" mt-5 grid place-content-center">
                             <div class="h-28 w-28 overflow-hidden bg-white rounded-full">
-                                @if (auth()->user()->doctor->gender == 'male')
+                                @if (auth()->user()->doctor->gender == 'Male')
                                     <img src="{{ asset('images/male-doctor.jpg') }}" class="h-full w-full"
                                         alt="">
                                 @else
@@ -146,7 +146,7 @@
                         <div class="relative flex-shrink-0 ml-5" @click.away="open = false" x-data="{ open: false }">
                             <div>
                                 <button @click="open = !open" class="flex space-x-3 items-center group">
-                                    @if (auth()->user()->doctor->gender == 'male')
+                                    @if (auth()->user()->doctor->gender == 'Male')
                                         <img src="{{ asset('images/male-doctor.jpg') }}"
                                             class="h-12 w-12 rounded-full object-cover " alt="">
                                     @else
