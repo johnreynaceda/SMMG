@@ -29,9 +29,9 @@ class PatientRegister extends Component implements Forms\Contracts\HasForms
         return [
             Grid::make(2)
                 ->schema([
-                    TextInput::make('lastname')->required(),
-                    TextInput::make('firstname')->required(),
-                    TextInput::make('middlename')->required(),
+                    TextInput::make('lastname')->required()->extraInputAttributes(['oninput' => 'this.value = this.value.replace(/[^a-zA-Z]/g, "")']),
+                    TextInput::make('firstname')->required()->extraInputAttributes(['oninput' => 'this.value = this.value.replace(/[^a-zA-Z]/g, "")']),
+                    TextInput::make('middlename')->required()->extraInputAttributes(['oninput' => 'this.value = this.value.replace(/[^a-zA-Z]/g, "")']),
                     TextInput::make('contact')->numeric()->mask(fn(TextInput\Mask $mask) => $mask->pattern('00000000000'))->required()->unique(),
                     DatePicker::make('birthdate'),
                     TextInput::make('age')->numeric(),
@@ -40,7 +40,13 @@ class PatientRegister extends Component implements Forms\Contracts\HasForms
                             'Male' => 'Male',
                             'Female' => 'Female',
                         ]),
-                    TextInput::make('civil_status')->required(),
+                    Select::make('civil_status')
+                        ->options([
+                            'Single' => 'Single',
+                            'Married' => 'Married',
+                            'Widowed' => 'Widowed',
+                            'Divorced' => 'Divorced',
+                        ]),
                 ]),
             TextInput::make('address')->required(),
 

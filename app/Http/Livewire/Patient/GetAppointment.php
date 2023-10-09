@@ -65,32 +65,46 @@ class GetAppointment extends Component implements Forms\Contracts\HasForms
             'specialization_id' => 'required',
         ]);
 
-        $slot = Slot::first()->default_slot;
-        $date = PatientAppointment::whereDate('appointment_date', $this->appointment_date)->where('status', 'accepted')->where('doctor_id', $this->doctor_id)->count();
 
-        if ($date < $slot) {
-            PatientAppointment::create([
-                'user_id' => auth()->user()->id,
-                'doctor_id' => $this->doctor_id,
-                'condition' => $this->condition,
-                'specialization_id' => $this->specialization_id,
-                'appointment_date' => \Carbon\Carbon::parse(
-                    $this->appointment_date
-                )->format('Y-m-d'),
-            ]);
-            Notification::make()
-                ->title('Submit successfully')
-                ->success()
-                ->send();
+        $schedule = PatientAppointment::where('user_id', auth()->user()->id)->whereDate('appointment_date', $this->appointment_date)->get();
 
-            return redirect()->route('submit-appointment');
-        } else {
+
+        if ($schedule->count() > 0) {
             $this->dialog()->error(
-                $title = 'Slot is Full',
-                $description = 'Your selected appointment id already full. Please choose another appointment date.'
+                $title = 'Already scheduled',
+                $description = 'Your selected appointment date is already scheduled'
 
             );
+        } else {
+
+            $slot = Slot::first()->default_slot;
+            $date = PatientAppointment::whereDate('appointment_date', $this->appointment_date)->where('status', 'accepted')->where('doctor_id', $this->doctor_id)->count();
+
+            if ($date < $slot) {
+                PatientAppointment::create([
+                    'user_id' => auth()->user()->id,
+                    'doctor_id' => $this->doctor_id,
+                    'condition' => $this->condition,
+                    'specialization_id' => $this->specialization_id,
+                    'appointment_date' => \Carbon\Carbon::parse(
+                        $this->appointment_date
+                    )->format('Y-m-d'),
+                ]);
+                Notification::make()
+                    ->title('Submit successfully')
+                    ->success()
+                    ->send();
+
+                return redirect()->route('submit-appointment');
+            } else {
+                $this->dialog()->error(
+                    $title = 'Slot is Full',
+                    $description = 'Your selected appointment id already full. Please choose another appointment date.'
+
+                );
+            }
         }
+
 
 
 
