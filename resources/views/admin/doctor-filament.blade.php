@@ -8,8 +8,8 @@
         <div>
             <h1 class="uppercase font-bold text-gray-700">{{ $getRecord()->user->name }}</h1>
             <h1 class="text-sm leading-3">
-                @if (request()->routeIs('admin.nurses') == true)
-                    <span>{{ $getRecord()->specialization ?? '' }}</span>
+                @if (request()->routeIs('admin.nurses') === true)
+                    {{-- <span>{{ $getRecord()->specialization ?? '' }}</span> --}}
                 @else
                     <span class="uppercase text-xs text-red-500">
                         @foreach ($getRecord()->doctor_specializations as $item)

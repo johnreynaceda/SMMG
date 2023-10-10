@@ -134,10 +134,23 @@ class Doctor extends Component implements Tables\Contracts\HasTable
                         'firstname' => $data['firstname'],
                         'middlename' => $data['middlename'],
                         'lastname' => $data['lastname'],
-                        'specialization_id' => $data['specialization'],
-                        'schedule' => $data['schedule'],
+
+                        'schedule' => implode('/', $data['schedule'])
                         // 'image_path' => $data['attachment'][0]->store('doctor_attachments', 'public'),
                     ]);
+
+                    DoctorSpecialization::where('doctor_id', $record->id)->delete();
+
+
+                    foreach ($data['specialization'] as $key => $value) {
+                        DoctorSpecialization::create([
+                            'doctor_id' => $record->id,
+                            'specialization_id' => $value,
+                        ]);
+                    }
+
+
+
 
                     $record->user->update([
                         'name' => $data['firstname'] . ' ' . $data['lastname'],
@@ -162,7 +175,7 @@ class Doctor extends Component implements Tables\Contracts\HasTable
                                             'Female' => 'Female',
                                         ]),
                                     TextInput::make('phone_number')->label('Phone Number')->numeric()->required()->default($record->user->phone_number),
-                                    Select::make('specialization')->options(Specialization::pluck('name', 'id'))->multiple()->required()->default($record->doctor_specializations->pluck('id')->toArray())->disabled()
+                                    Select::make('specialization')->options(Specialization::pluck('name', 'id'))->multiple()->required()->default($record->doctor_specializations->pluck('specialization_id')->toArray())
                                     ,
                                     Select::make('schedule')->options([
                                         'Monday' => 'Monday',
@@ -172,7 +185,9 @@ class Doctor extends Component implements Tables\Contracts\HasTable
                                         'Friday' => 'Friday',
                                         'Saturday' => 'Saturday',
                                         'Sunday' => 'Sunday',
-                                    ])->multiple()->placeholder($record->schedule),
+                                    ])->multiple()->default(
+                                            explode('/', $record->schedule)
+                                        ),
                                 ])
                                 ->columns(3),
                             Fieldset::make('ACCOUNT INFORMATION')

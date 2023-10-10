@@ -95,7 +95,7 @@ class Nurses extends Component implements Tables\Contracts\HasTable
 
         return [
 
-            ViewColumn::make('name')->label('FULLNAME')->view('admin.doctor-filament')->searchable(['firstname', 'middlename', 'lastname']),
+            ViewColumn::make('name')->label('FULLNAME')->view('admin.nurses-filament')->searchable(['firstname', 'middlename', 'lastname']),
             Tables\Columns\TextColumn::make('user.email')->label('EMAIL')->searchable(),
             Tables\Columns\TextColumn::make('user.phone_number')->label('PHONE NUMBER')->searchable(),
             Tables\Columns\TextColumn::make('created_at')->label('CREATED DATE')->date()->searchable(),
@@ -114,7 +114,7 @@ class Nurses extends Component implements Tables\Contracts\HasTable
                         'firstname' => $data['firstname'],
                         'middlename' => $data['middlename'],
                         'lastname' => $data['lastname'],
-                        'specialization' => $data['specialization'],
+                        // 'specialization' => $data['specialization'],
                         // 'image_path' => $data['attachment'][0]->store('doctor_attachments', 'public'),
                     ]);
 
@@ -139,7 +139,6 @@ class Nurses extends Component implements Tables\Contracts\HasTable
                                     TextInput::make('middlename')->label('Middle Name')->required()->default($record->middlename),
                                     TextInput::make('lastname')->label('Last Name')->required()->default($record->lastname),
                                     TextInput::make('phone_number')->label('Phone Number')->numeric()->required()->default($record->user->phone_number),
-                                    TextInput::make('specialization')->label('Specialization')->required()->default($record->specialization),
                                     // FileUpload::make('attachment')->label('Attachment')->multiple()->required(),
                                 ])
                                 ->columns(3),
