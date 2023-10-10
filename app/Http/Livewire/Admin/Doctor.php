@@ -149,16 +149,30 @@ class Doctor extends Component implements Tables\Contracts\HasTable
                 }
             )->form(
                     function ($record) {
+                        // dd($record->doctor_specializations->pluck('id'));
                         return [
                             Fieldset::make('DOCTOR INFORMATION')
                                 ->schema([
                                     TextInput::make('firstname')->label('First Name')->required()->default($record->firstname),
                                     TextInput::make('middlename')->label('Middle Name')->required()->default($record->middlename),
                                     TextInput::make('lastname')->label('Last Name')->required()->default($record->lastname),
+                                    Select::make('gender')->required()->default($record->gender)
+                                        ->options([
+                                            'Male' => 'Male',
+                                            'Female' => 'Female',
+                                        ]),
                                     TextInput::make('phone_number')->label('Phone Number')->numeric()->required()->default($record->user->phone_number),
-                                    Select::make('specialization')->options(Specialization::pluck('name', 'id'))->default($record->specialization->id),
-                                    TextInput::make('schedule')->label('Schedule')->required()->default($record->schedule),
-                                    // FileUpload::make('attachment')->label('Attachment')->multiple()->required(),
+                                    Select::make('specialization')->options(Specialization::pluck('name', 'id'))->multiple()->required()->default($record->doctor_specializations->pluck('id')->toArray())->disabled()
+                                    ,
+                                    Select::make('schedule')->options([
+                                        'Monday' => 'Monday',
+                                        'Tuesday' => 'Tuesday',
+                                        'Wednesday' => 'Wednesday',
+                                        'Thursday' => 'Thursday',
+                                        'Friday' => 'Friday',
+                                        'Saturday' => 'Saturday',
+                                        'Sunday' => 'Sunday',
+                                    ])->multiple()->placeholder($record->schedule),
                                 ])
                                 ->columns(3),
                             Fieldset::make('ACCOUNT INFORMATION')
@@ -168,7 +182,9 @@ class Doctor extends Component implements Tables\Contracts\HasTable
 
                                 ])
                                 ->columns(2)
+
                         ];
+
                     }
                 )->modalHeading('Update Doctor'),
             Tables\Actions\DeleteAction::make(),

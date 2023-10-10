@@ -39,6 +39,11 @@ class DoctorAppointment extends Component implements Tables\Contracts\HasTable
             Tables\Columns\TextColumn::make('user.name')->label('FULLNAME')->searchable(),
             Tables\Columns\TextColumn::make('doctor.user.name')->label('DOCTOR NAME')->searchable(),
             Tables\Columns\TextColumn::make('condition')->label('CONDITION')->searchable(),
+            Tables\Columns\TextColumn::make('reason')->label('REASON')->searchable()->formatStateUsing(
+                function ($record) {
+                    return $record->reason ?? 'Not been rescheduled';
+                }
+            ),
             Tables\Columns\TextColumn::make('appointment_date')->date()->label('APPOINTMENT DATE')->searchable(),
             BadgeColumn::make('status')->label('STATUS')
                 ->enum([

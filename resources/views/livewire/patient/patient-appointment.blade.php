@@ -200,8 +200,9 @@
                     <h1 class="text-lg font-bold">
                         {{ \Carbon\Carbon::parse($appointment_data->appointment_date ?? '')->format('F d, Y') }}</h1>
                 </div>
-                <div class="mt-5">
+                <div class="mt-5 flex flex-col space-y-2">
                     <x-datetime-picker label="Appointment Date" without-time wire:model.defer="new_schedule" />
+                    <x-textarea label="Reason" wire:model.defer="reason" placeholder="write your reason" />
                 </div>
                 <x-slot name="footer">
 

@@ -13,7 +13,9 @@ class PatientAppointment extends Component
     public $reschedule_modal = false;
     public $appointment_id;
     public $is_collected;
+    public $reason;
     public $appointment_data;
+
     public $bp_attachment, $hr_attatchment, $bsc_attachment, $new_schedule;
     public function render()
     {
@@ -61,6 +63,8 @@ class PatientAppointment extends Component
 
         $data->update([
             'appointment_date' => $this->new_schedule,
+            'reason' => $this->reason,
+            'is_rescheduled' => true,
         ]);
         $this->dialog()->success(
 
