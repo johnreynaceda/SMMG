@@ -97,7 +97,7 @@
                                         </span>
                                     </a>
                                 </li>
-                                <li>
+                                {{-- <li>
                                     <a class="{{ request()->routeIs('nurse.tasks') ? 'bg-white text-gray-700 fill-gray-700' : 'text-white fill-white' }} inline-flex  items-center w-full px-4 py-2 mt-1    transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100  hover:scale-95 hover:text-gray-700 hover:fill-gray-700"
                                         href="{{ route('nurse.tasks') }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
@@ -109,7 +109,7 @@
                                             Tasks
                                         </span>
                                     </a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </nav>
                         <ul class="mb-2">
