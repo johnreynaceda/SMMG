@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('user_id');
             $table->string('firstname');
-            $table->string('middlename');
+            $table->string('middlename')->nullable();
             $table->string('lastname');
             $table->date('birthdate');
             $table->string('age');

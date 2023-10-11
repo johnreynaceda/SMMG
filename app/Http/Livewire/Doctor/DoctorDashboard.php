@@ -83,7 +83,7 @@ class DoctorDashboard extends Component
         $parameters = [
             'apikey' => $api_key,
             'number' => $patient->user->phone_number,
-            'message' => 'Dear User, Your Appointment for Dr.' . $patient->doctor->user->name . ' has been declined.' . 'Please try to book again. Thank you for using our service.',
+            'message' => 'Dear ' . $patient->user->name . ', Your Appointment for Dr.' . $patient->doctor->user->name . ' has been declined.' . 'Please try to book again. Thank you for using our service.',
             'sendername' => $sender,
         ];
         curl_setopt($ch, CURLOPT_URL, 'https://semaphore.co/api/v4/messages');

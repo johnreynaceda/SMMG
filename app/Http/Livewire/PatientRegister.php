@@ -2,6 +2,10 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Barangay;
+use App\Models\City;
+use App\Models\PatientProfile;
+use App\Models\Province;
 use App\Models\SmsOtp;
 use App\Models\User;
 use Livewire\Component;
@@ -23,6 +27,10 @@ class PatientRegister extends Component implements Forms\Contracts\HasForms
     public $firstname, $lastname, $middlename, $birthdate, $age, $gender, $civil_status, $address, $contact, $email, $password, $password_confirmation;
     public $one, $two, $three, $four, $date;
 
+    public $province_id, $city_id, $barangay_id, $street;
+
+
+
 
     protected function getFormSchema(): array
     {
@@ -31,7 +39,7 @@ class PatientRegister extends Component implements Forms\Contracts\HasForms
                 ->schema([
                     TextInput::make('lastname')->required()->extraInputAttributes(['oninput' => 'this.value = this.value.replace(/[^a-zA-Z]/g, "")']),
                     TextInput::make('firstname')->required()->extraInputAttributes(['oninput' => 'this.value = this.value.replace(/[^a-zA-Z]/g, "")']),
-                    TextInput::make('middlename')->required()->extraInputAttributes(['oninput' => 'this.value = this.value.replace(/[^a-zA-Z]/g, "")']),
+                    TextInput::make('middlename')->label('Middlename(Optional)')->extraInputAttributes(['oninput' => 'this.value = this.value.replace(/[^a-zA-Z]/g, "")']),
                     TextInput::make('contact')->numeric()->mask(fn(TextInput\Mask $mask) => $mask->pattern('00000000000'))->required()->unique(),
                     DatePicker::make('birthdate'),
                     TextInput::make('age')->numeric(),
@@ -47,8 +55,15 @@ class PatientRegister extends Component implements Forms\Contracts\HasForms
                             'Widowed' => 'Widowed',
                             'Divorced' => 'Divorced',
                         ]),
+                    Select::make('province_id')->label('Province')->reactive()->required()
+                        ->options(Province::pluck('province_description', 'province_code')),
+                    Select::make('city_id')->label('City/Municipality')->reactive()->required()
+                        ->options(City::where('province_code', $this->province_id)->pluck('city_municipality_description', 'city_municipality_code')),
+                    Select::make('barangay_id')->label('Barangay')->required()
+                        ->options(Barangay::where('city_municipality_code', $this->city_id)->pluck('barangay_description', 'barangay_code')),
+
                 ]),
-            TextInput::make('address')->required(),
+
 
             Fieldset::make('ACCOUNT INFORMATION')
                 ->schema([
@@ -65,20 +80,22 @@ class PatientRegister extends Component implements Forms\Contracts\HasForms
     public function createAccount()
     {
         sleep(3);
+
         if ($this->contact) {
             $this->validate([
                 'firstname' => 'required',
-                'middlename' => 'required',
                 'lastname' => 'required',
                 'contact' => 'required|digits:11|unique:users,phone_number',
                 'birthdate' => 'required',
                 'age' => 'required',
                 'gender' => 'required',
                 'civil_status' => 'required',
-                'address' => 'required',
                 'email' => 'required',
                 'password' => 'required',
                 'password_confirmation' => 'required|same:password',
+                'province_id' => 'required',
+                'city_id' => 'required',
+                'barangay_id' => 'required',
             ]);
             $this->verification_modal = true;
             $verify = SmsOtp::where('phone_number', $this->contact)->first();
@@ -107,6 +124,9 @@ class PatientRegister extends Component implements Forms\Contracts\HasForms
 
 
             } else {
+
+
+
                 $random = rand(1000, 9999);
                 SmsOtp::create([
                     'phone_number' => $this->contact,
@@ -158,6 +178,26 @@ class PatientRegister extends Component implements Forms\Contracts\HasForms
                 'password' => bcrypt($this->password),
                 'phone_number' => $this->contact,
             ]);
+
+            $province = Province::where('province_code', $this->province_id)->first()->province_description;
+            $city = City::where(
+                'city_municipality_code',
+                $this->city_id
+            )->first()->city_municipality_description;
+            $barangay = Barangay::where('barangay_code', $this->barangay_id)->first()->barangay_description;
+
+            PatientProfile::create([
+                'user_id' => $user->id,
+                'firstname' => $this->firstname,
+                'lastname' => $this->lastname,
+                'middlename' => $this->middlename ?? 'null',
+                'birthdate' => $this->birthdate,
+                'age' => $this->age,
+                'gender' => $this->gender,
+                'civil_status' => $this->civil_status,
+                'address' => strtoupper($barangay . ', ' . $city . ', ' . $province),
+            ]);
+
             auth()->loginUsingId($user->id);
             $this->modal_open = false;
             $this->dialog()->success(

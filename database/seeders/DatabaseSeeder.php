@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -40,5 +41,16 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
             'account_type' => 'admin',
         ]);
+
+
+        if (!DB::table('provinces')->count()) {
+            DB::unprepared(file_get_contents(__DIR__ . '/address/refProvince.sql'));
+        }
+        if (!DB::table('cities')->count()) {
+            DB::unprepared(file_get_contents(__DIR__ . '/address/refCitymun.sql'));
+        }
+        // if (!DB::table('barangays')->count()) {
+        //     DB::unprepared(file_get_contents(__DIR__ . '/address/refBrgy.sql'));
+        // }
     }
 }

@@ -15,6 +15,8 @@ class Reports extends Component implements Forms\Contracts\HasForms
     public $active_filter, $month;
 
     public $years = [];
+
+    public $date_from, $date_to;
     public $selectedYear = '';
     public function render()
     {
@@ -57,8 +59,8 @@ class Reports extends Component implements Forms\Contracts\HasForms
             $last7day = now()->subDays(7);
             return PatientAppointment::whereBetween('created_at', [$last7day, now()])->get();
         } elseif ($this->active_filter == 3) {
-            return PatientAppointment::when($this->month, function ($record) {
-                return $record->whereMonth('created_at', $this->month);
+            return PatientAppointment::when($this->date_from, function ($record) {
+                return $record->whereBetween('appointment_date', [$this->date_from, $this->date_to]);
             })->get();
         } elseif ($this->active_filter == 4) {
             return PatientAppointment::when($this->selectedYear, function ($record) {

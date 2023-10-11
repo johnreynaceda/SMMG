@@ -7,38 +7,15 @@
                 <option>Select An Option</option>
                 <option value="1">Per Day</option>
                 <option value="2">Per Week</option>
-                <option value="3">Per Month</option>
-                <option value="4">Per Year</option>
+                <option value="3">By Date</option>
             </x-native-select>
 
             @if ($active_filter == '3')
-                <x-native-select wire:model="month">
-                    <option>Select An Option</option>
-                    <option value="1">January</option>
-                    <option value="2">February</option>
-                    <option value="3">March</option>
-                    <option value="4">April</option>
-                    <option value="5">May</option>
-                    <option value="6">June</option>
-                    <option value="7">July</option>
-                    <option value="8">August</option>
-                    <option value="9">September</option>
-                    <option value="10">October</option>
-                    <option value="11">November</option>
-                    <option value="12">December</option>
-
-
-                </x-native-select>
+                <x-datetime-picker placeholder="Date From" without-time wire:model="date_from" />
+                <x-datetime-picker placeholder="Date To" without-time wire:model="date_to" />
             @endif
 
-            @if ($active_filter == '4')
-                <x-native-select wire:model="selectedYear">
-                    <option>Select An Option</option>
-                    @foreach ($years as $year)
-                        <option value="{{ $year }}">{{ $year }}</option>
-                    @endforeach
-                </x-native-select>
-            @endif
+
         </div>
         <div class="flex space-x-1 items-center">
             <x-button.circle icon="refresh" loading-delay="short" warning spinner />
