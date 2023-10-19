@@ -43,7 +43,7 @@
                         class="object-cover absolute top-0 w-full h-full rounded-2xl" alt="">
                     <div class="relative bg-gray-700 grid place-content-center w-full rounded-2xl bg-opacity-50 p-10">
                         <h1 class="text-3xl text-white font-bold">DIAGNOSTIC</h1>
-                        <a class="mt-2 text-gray-200" href="">Read More</a>
+
                     </div>
                 </swiper-slide>
                 <swiper-slide class="w-[35rem] h-56 rounded-2xl relative">
@@ -51,7 +51,7 @@
                         class="object-cover absolute top-0 w-full h-full rounded-2xl" alt="">
                     <div class="relative bg-gray-700 grid place-content-center w-full rounded-2xl bg-opacity-50 p-10">
                         <h1 class="text-3xl text-white font-bold">PEDIATRIC</h1>
-                        <a class="mt-2 text-gray-200" href="">Read More</a>
+
                     </div>
                 </swiper-slide>
                 <swiper-slide class="w-[35rem] h-56 rounded-2xl relative">
@@ -59,7 +59,7 @@
                         class="object-cover absolute top-0 w-full h-full rounded-2xl" alt="">
                     <div class="relative bg-gray-700 grid place-content-center w-full rounded-2xl bg-opacity-50 p-10">
                         <h1 class="text-3xl text-white font-bold">HEMODIALYSIS</h1>
-                        <a class="mt-2 text-gray-200" href="">Read More</a>
+
                     </div>
                 </swiper-slide>
 

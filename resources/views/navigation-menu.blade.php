@@ -22,6 +22,7 @@
                         </x-nav-link> --}}
                         <x-nav-link href="{{ route('notification') }}" :active="request()->routeIs('notification')">
                             {{ __('Notification') }}
+                            <x-badge rounded label="{{ App\Models\Notification::count() }}" dark class="ml-1" />
                         </x-nav-link>
 
                         <x-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')">
@@ -102,9 +103,7 @@
 
 
 
-                    <x-dropdown.item label="Help Center" />
-
-                    <x-dropdown.item separator label="Live Chat" />
+                    <x-dropdown.item href="{{ route('profile.show') }}" label="My Profile" />
 
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf

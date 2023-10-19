@@ -74,10 +74,12 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <a href="" class="hover:text-green-600 text-gray-600 text-sm">See Details</a>
                                 </div>
                             </li>
                         @empty
+                            <div>
+                                No data available...
+                            </div>
                         @endforelse
 
                     </ul>
