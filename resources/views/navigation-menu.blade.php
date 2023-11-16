@@ -1,7 +1,7 @@
 <nav x-data="{ open: false }" class="">
     <!-- Primary Navigation Menu -->
     <div class="  bg-white border-b relative shadow-lg border-gray-100 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-20 max-w-7xl mx-auto">
+        <div class="flex justify-between h-20 max-w-7xl mx-auto px-2 2xl:px-0">
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
@@ -22,7 +22,9 @@
                         </x-nav-link> --}}
                         <x-nav-link href="{{ route('notification') }}" :active="request()->routeIs('notification')">
                             {{ __('Notification') }}
-                            <x-badge rounded label="{{ App\Models\Notification::count() }}" dark class="ml-1" />
+                            <x-badge rounded
+                                label="{{ App\Models\Notification::where('user_id', auth()->user()->id)->where('read_at', null)->count() }}"
+                                dark class="ml-1" />
                         </x-nav-link>
 
                         <x-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')">

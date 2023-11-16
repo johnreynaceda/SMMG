@@ -3,12 +3,12 @@
 
     <div class="my-4 bg-white p-5 rounded-2xl flex justify-between items-center">
         <div class="flex items-center justify-center space-x-3">
-            <x-native-select wire:model="active_filter">
+            {{-- <x-native-select wire:model="active_filter">
                 <option>Select An Option</option>
                 <option value="1">Per Day</option>
                 <option value="2">Per Week</option>
                 <option value="3">By Date</option>
-            </x-native-select>
+            </x-native-select> --}}
 
             @if ($active_filter == '3')
                 <x-datetime-picker placeholder="Date From" without-time wire:model="date_from" />

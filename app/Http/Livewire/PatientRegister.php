@@ -30,6 +30,12 @@ class PatientRegister extends Component implements Forms\Contracts\HasForms
     public $province_id, $city_id, $barangay_id, $street;
 
 
+    public function inputUpdated($currentInput, $nextInput)
+    {
+        if ($this->$currentInput) {
+            $this->dispatchBrowserEvent('autofocusInput', ['inputName' => $nextInput]);
+        }
+    }
 
 
     protected function getFormSchema(): array
@@ -41,7 +47,7 @@ class PatientRegister extends Component implements Forms\Contracts\HasForms
                     TextInput::make('firstname')->required()->extraInputAttributes(['oninput' => 'this.value = this.value.replace(/[^a-zA-Z]/g, "")']),
                     TextInput::make('middlename')->label('Middlename(Optional)')->extraInputAttributes(['oninput' => 'this.value = this.value.replace(/[^a-zA-Z]/g, "")']),
                     TextInput::make('contact')->numeric()->mask(fn(TextInput\Mask $mask) => $mask->pattern('00000000000'))->required()->unique(),
-                    DatePicker::make('birthdate'),
+                    DatePicker::make('birthdate')->reactive(),
                     TextInput::make('age')->numeric(),
                     Select::make('gender')
                         ->options([
@@ -75,6 +81,11 @@ class PatientRegister extends Component implements Forms\Contracts\HasForms
                 ->columns(2)
 
         ];
+    }
+
+    public function updatedBirthdate()
+    {
+        $this->age = \Carbon\Carbon::parse($this->birthdate)->age;
     }
 
     public function createAccount()

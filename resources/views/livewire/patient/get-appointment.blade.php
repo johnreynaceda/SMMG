@@ -1,6 +1,6 @@
 <div>
-    <div class="flex space-x-10 items-appointment w-full">
-        <div>
+    <div class="grid grid-cols-1 2xl:grid-cols-4  gap-10 items-appointment ">
+        <div class="">
             <div class="div border rounded-lg relative p-5 overflow-hidden">
                 <img src="{{ asset('images/logo.png') }}" class="absolute w-full bg-cover bottom-0 opacity-5"
                     alt="">
@@ -18,7 +18,7 @@
                             {{ $doctor_data->firstname . ' ' . $doctor_data->lastname }}
                         </h1>
                         <div class="mt-1">
-                            <h1 class="text-gray-700 uppercase ">
+                            <p class="text-red-700 uppercase font-medium  ">
                                 {{-- <h1 class="text-gray-700 ">{{ $doctor_data->specialization->name }}</h1> --}}
                                 @foreach ($doctor_data->doctor_specializations as $item)
                                     {{ $item->specialization->name }}
@@ -26,23 +26,24 @@
                                         /
                                     @endif
                                 @endforeach
-                            </h1>
+                            </p>
                         </div>
                         <div class="mt-1">
-                            <h1 class="text-gray-700 ">({{ $doctor_data->schedule }})</h1>
+                            <p class="text-gray-700 ">({{ $doctor_data->schedule }})</p>
+                            <p class="text-gray-700 font-bold truncate w-40">({{ $doctor_data->time_schedule }})</p>
                         </div>
                     </center>
                 </div>
             </div>
         </div>
-        <div class="flex-1 w-full">
+        <div class="flex-1 col-span-3 w-full cols">
             <div class="border p-5 rounded-lg">
                 <h1 class="font-bold text-xl text-gray-700 ">APPOINTMENT DETAILS</h1>
                 <div class="mt-5">
                     <div>
                         {{ $this->form }}
                     </div>
-                    <div class="mt-4 grid grid-cols-3 items-end gap-5">
+                    <div class="mt-4 grid 2xl:grid-cols-3 grid-cols-1  items-end gap-5">
                         <x-datetime-picker class="h-12" label="Appointment Date" without-time
                             wire:model="appointment_date" :min="now()" :max="now()->endOfMonth()" />
 

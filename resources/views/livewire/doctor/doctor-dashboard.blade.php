@@ -128,7 +128,7 @@
                     <div>
                         <span>Appointment Date</span>
                         <p class="text-gray-700 font-bold">
-                            {{ \Carbon\Carbon::parse($appointment_data->appointment_date ?? null)->format('F d, Y h:i A') }}
+                            {{ \Carbon\Carbon::parse($appointment_data->appointment_date ?? null)->format('F d, Y') }}
                         </p>
                     </div>
                 </div>

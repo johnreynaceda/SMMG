@@ -26,14 +26,14 @@
             </svg>
         </div>
         <div class="py-12 mx-auto max-w-7xl">
-            <header class="text-semibold text-lg">
+            <header class="text-semibold text-lg px-2 2xl:px-0">
                 <h1> Hi, {{ auth()->user()->name }} 👋🏻</h1>
                 <h1 class="mt-2 text-2xl font-bold text-gray-600">Keep taking care of your health! </h1>
             </header>
             <center class="mt-10 font-bold text-3xl text-gray-900">Services we provide</center>
 
         </div>
-        <div class="my-5 mx-20">
+        <div class="my-5 2xl:mx-20">
             </style>
             <swiper-container class="mySwiper" slides-per-view="auto" centered-slides="true" navigation="true"
                 slides-per-view="3" space-between="30" free-mode="true" keyboard="true" pagination="true"
@@ -94,9 +94,9 @@
             </svg>
         </div>
         <center class="mt-10 font-bold text-3xl uppercase text-gray-900">DOCTORS</center>
-        <div class=" mx-auto pb-20 mt-20 max-w-7xl relative">
+        <div class=" mx-auto pb-20 mt-20 max-w-7xl px-5 2xl:px-0 relative">
 
-            <div class="grid   grid-cols-3 gap-5">
+            <div class="grid   2xl:grid-cols-3 grid-cols-1 gap-5">
                 @forelse ($doctors as $item)
                     <div class="bg-gray-200 h-96 rounded-2xl grid place-content-center">
                         <div class="bg-blue-300 h-56 w-56 rounded-full  overflow-hidden">

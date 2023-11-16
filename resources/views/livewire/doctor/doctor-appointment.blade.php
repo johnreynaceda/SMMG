@@ -154,6 +154,169 @@
         </x-modal.card>
     </div> --}}
 
-<div>
-    {{ $this->table }}
-</div>
+<div x-data>
+    <div class="flex justify-between items-end">
+        <div class="flex space-x-3 items-center">
+            <x-datetime-picker label="Date From" placeholder="{{ now()->format('F m, Y') }}" without-time
+                wire:model="created_from" />
+            <x-datetime-picker label="Date To" placeholder="{{ now()->format('F m, Y') }}" without-time
+                wire:model="created_until" />
+        </div>
+        <div>
+            <x-button label="PRINT" class="font-bold" @click="printOut($refs.printContainer.outerHTML);" dark
+                icon="printer" />
+        </div>
+
+    </div>
+    <div class="mt-5">
+        <div x-ref="printContainer" class="bg-white p-5 rounded-xl">
+            <div class="flex space-x-3 items-center">
+                <div>
+                    <img src="{{ asset('images/logo.png') }}" class="h-12" alt="">
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-gray-700">MMG - BULAN</h1>
+                    <h1 class="text-md  leading-3 font-bold uppercase text-gray-500">Appointments List</h1>
+                </div>
+            </div>
+            <div class="mt-10">
+                <table id="example" class="table-auto" style="width:100%">
+                    <thead class="font-normal">
+                        <tr>
+                            <th class="border-2  text-left px-2 text-sm font-bold text-gray-700 py-2">PATIENT NAME
+                            </th>
+                            <th class="border-2  text-left px-2 text-sm font-bold text-gray-700 py-2">DOCTOR NAME
+                            </th>
+                            <th class="border-2  text-left px-2 text-sm font-bold text-gray-700 py-2">CONDITION
+                            </th>
+                            <th class="border-2  text-left px-2 text-sm font-bold text-gray-700 py-2">ADDRESS</th>
+
+                            <th class="border-2  text-left px-2 text-sm font-bold text-gray-700 py-2">DATE OF
+                                APPOINTMENT
+                            </th>
+                            <th class="border-2  text-left px-2 text-sm font-bold text-gray-700 py-2">
+                                STATUS
+                            </th>
+                            <th class="border-2  text-left px-2 text-sm font-bold text-gray-700 py-2">
+
+                            </th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody class="">
+                        @forelse ($reports as $report)
+                            <tr>
+                                <td class="border-2 uppercase text-gray-700  px-3 py-1">
+                                    {{ $report->user->name }}
+                                </td>
+                                <td class="border-2 uppercase text-gray-700  px-3 py-1">
+                                    {{ $report->doctor->user->name }}
+                                </td>
+                                <td class="border-2 uppercase text-gray-700  px-3 py-1">
+                                    {{ $report->condition }}
+                                </td>
+                                <td class="border-2  text-gray-700  px-3 py-1">
+                                    {{ $report->user->patient_profile->address }}
+                                </td>
+                                <td class="border-2  text-gray-700  px-3 py-1">
+                                    {{ \Carbon\Carbon::parse($report->appointment_date)->format('F d, Y') }}
+                                </td>
+                                <td class="border-2  text-gray-700  px-3 py-1">
+                                    @switch($report->status)
+                                        @case('pending')
+                                            <x-badge label="Pending" warning />
+                                        @break
+
+                                        @case('accepted')
+                                            <x-badge label="Accepted" positive />
+                                        @break
+
+                                        @case('declined')
+                                            <x-badge label="Declined" negative />
+                                        @break
+
+                                        @case('done')
+                                            <x-badge label="Done" outline positive />
+                                        @break
+
+                                        @default
+                                    @endswitch
+                                </td>
+                                <td class="border-2  text-gray-700  px-3 py-1">
+                                    @if ($report->status != 'done')
+                                        <x-dropdown>
+
+                                            <x-slot name="trigger">
+
+                                                <x-button xs label="Options" dark />
+
+                                            </x-slot>
+
+                                            @if ($report->status == 'pending')
+                                                <x-dropdown.item label="Accept"
+                                                    wire:click="acceptAppointment({{ $report->id }})"
+                                                    icon="thumb-up" />
+                                                <x-dropdown.item label="Decline"
+                                                    wire:click="declineAppointment({{ $report->id }})"
+                                                    icon="thumb-down" />
+                                            @endif
+                                            @if ($report->status == 'accepted')
+                                                <x-dropdown.item label="Done"
+                                                    wire:click="doneAppointment({{ $report->id }})" icon="check" />
+
+                                                <x-dropdown.item label="Reschedule"
+                                                    wire:click="rescheduleAppointment({{ $report->id }})"
+                                                    icon="clock" />
+                                            @endif
+
+
+                                        </x-dropdown>
+                                    @endif
+                                </td>
+
+                            </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="6" class="border-2 px-2 py-2">
+                                        <span class="text-center  ">
+                                            No data...
+                                        </span>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <x-modal wire:model.defer="reschedule_modal" align="center" max-width="lg">
+
+            <x-card title="RESCHEDULE">
+
+                <div class="p-5">
+                    <x-datetime-picker label="Reschedule Date" without-time placeholder="{{ now() }}"
+                        wire:model="reschedule_date" />
+                </div>
+
+
+
+                <x-slot name="footer">
+
+                    <div class="flex justify-end gap-x-4">
+
+                        <x-button flat label="Cancel" x-on:click="close" />
+
+                        <x-button label="Submit" wire:click="submitReschedule" spinner="submitReschedule" dark
+                            class="font-bold" />
+
+                    </div>
+
+                </x-slot>
+
+            </x-card>
+
+        </x-modal>
+    </div>

@@ -26,29 +26,17 @@ Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
+    'user-redirect'
 ])->group(function () {
     Route::get('/dashboard', function () {
-
-        switch (auth()->user()->account_type) {
-            case 'admin':
-                return redirect()->route('admin.dashboard');
-                break;
-            case 'patient':
-                return redirect()->route('patient.dashboard');
-                break;
-
-            case 'doctor':
-                return redirect()->route('doctor.dashboard');
-                break;
-
-            case 'nurse':
-                return redirect()->route('nurse.dashboard');
-                break;
-
-
-            default:
-                # code...
-                break;
+        if (auth()->user()->account_type == 'admin') {
+            return redirect()->route('admin.dashboard');
+        } elseif (auth()->user()->account_type == 'patient') {
+            return redirect()->route('patient.dashboard');
+        } elseif (auth()->user()->account_type == 'doctor') {
+            return redirect()->route('doctor.dashboard');
+        } elseif (auth()->user()->account_type == 'nurse') {
+            return redirect()->route('nurse.dashboard');
         }
     })->name('dashboard');
 

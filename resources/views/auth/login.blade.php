@@ -81,7 +81,7 @@
             class="flex flex-1 flex-col relative justify-center bg-gray-700 bg-opacity-90 px-4 py-12 sm:px-6 lg:flex-none lg:px-20 ">
             <div class="mx-auto w-full max-w-lg lg:w-[60rem]">
                 <div>
-                    <img class="h-20  rounded-full w-auto" src="{{ asset('images/LOGO.png') }}" class=""
+                    <img class="h-20  rounded-full w-auto" src="{{ asset('images/logo.png') }}" class=""
                         alt="Your Company">
                     <h2 class="mt-3 text-2xl font-bold leading-9 tracking-tight text-main text-white">Welcome to
                         MMG-BULAN</h2>

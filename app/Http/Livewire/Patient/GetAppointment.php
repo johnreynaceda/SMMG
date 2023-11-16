@@ -47,10 +47,10 @@ class GetAppointment extends Component implements Forms\Contracts\HasForms
 
         return view('livewire.patient.get-appointment', [
             'doctor_data' => Doctor::where('id', $this->doctor_id)->first(),
-            'slots' => (Slot::first()->default_slot ?? 0) - PatientAppointment::when(
+            'slots' => (Doctor::where('id', $this->doctor_id)->first()->slot ?? 0) - PatientAppointment::when(
                 $this->appointment_date,
                 function ($record) {
-                    return $record->whereDate('appointment_date', $this->appointment_date)->where('status', 'accepted')->get();
+                    return $record->whereDate('appointment_date', $this->appointment_date);
                 }
             )->count(),
             'specializations' => DoctorSpecialization::where('doctor_id', $this->doctor_id)->get(),
@@ -77,7 +77,7 @@ class GetAppointment extends Component implements Forms\Contracts\HasForms
             );
         } else {
 
-            $slot = Slot::first()->default_slot;
+            $slot = Doctor::where('id', $this->doctor_id)->first()->slot;
             $date = PatientAppointment::whereDate('appointment_date', $this->appointment_date)->where('status', 'accepted')->where('doctor_id', $this->doctor_id)->count();
 
             if ($date < $slot) {

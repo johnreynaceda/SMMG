@@ -11,14 +11,14 @@
                 @if (request()->routeIs('admin.nurses') === true)
                     {{-- <span>{{ $getRecord()->specialization ?? '' }}</span> --}}
                 @else
-                    <span class="uppercase text-xs text-red-500">
+                    <p class="uppercase truncate w-28 text-xs text-red-500">
                         @foreach ($getRecord()->doctor_specializations as $item)
                             {{ $item->specialization->name }}
                             @if (!$loop->last)
                                 /
                             @endif
                         @endforeach
-                    </span>
+                    </p>
                 @endif
 
             </h1>

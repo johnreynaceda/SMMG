@@ -1,7 +1,7 @@
 <?php
 
 Route::prefix('nurse')
-    ->middleware(['auth'])
+    ->middleware(['auth', 'nurse'])
     ->group(function () {
         Route::get('/dashboard', function () {
             return view('nurse.index');

@@ -57,7 +57,7 @@
 
         </div>
         <div class="col-span-2">
-            <div class="bg-white rounded-2xl p-5">
+            {{-- <div class="bg-white rounded-2xl p-5">
                 <header class="flex justify-between items-center">
                     <span class="text-xl font-bold text-gray-600">PATIENT LIST</span>
                 </header>
@@ -84,7 +84,7 @@
 
                     </ul>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
     <div class="mt-10">

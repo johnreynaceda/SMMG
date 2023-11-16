@@ -125,7 +125,7 @@ class NurseDashboard extends Component implements Tables\Contracts\HasTable
             })->get(),
             'visits' => User::where('account_type', 'patient')->whereDate('created_at', now())->count(),
             'new' => PatientAppointment::whereDate('created_at', '<=', now())->whereDate('created_at', '>=', now()->subDays(5))->count(),
-            'old' => PatientAppointment::whereDate('created_at', '<=', now()->subDays(5))->count(),
+            'old' => PatientAppointment::where('status', 'done')->count(),
         ]);
     }
 }

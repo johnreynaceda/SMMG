@@ -18,6 +18,8 @@ return new class extends Migration {
             $table->string('lastname');
             $table->string('gender');
             $table->string('schedule');
+            $table->string('time_schedule');
+            $table->string('slot');
             $table->string('image_path')->nullable();
             $table->timestamps();
         });

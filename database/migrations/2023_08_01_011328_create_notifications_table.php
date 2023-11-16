@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->foreignId('patient_appointment_id');
             $table->foreignId('doctor_id');
             $table->string('description');
+            $table->string('read_at')->nullable();
             $table->timestamps();
         });
     }

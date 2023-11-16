@@ -12,7 +12,7 @@ class Reports extends Component implements Forms\Contracts\HasForms
 {
     use Forms\Concerns\InteractsWithForms;
     public $report;
-    public $active_filter, $month;
+    public $active_filter = 3, $month;
 
     public $years = [];
 

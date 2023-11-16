@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Patient;
 use Livewire\Component;
 use App\Models\PatientAppointment as Appointment;
 use WireUi\Traits\Actions;
+use App\Models\Notification as Notif;
 
 class PatientAppointment extends Component
 {
@@ -40,6 +41,8 @@ class PatientAppointment extends Component
         $data->update([
             'status' => 'canceled',
         ]);
+
+
         $this->dialog()->success(
 
             $title = 'Appointment canceled',
@@ -65,6 +68,14 @@ class PatientAppointment extends Component
             'appointment_date' => $this->new_schedule,
             'reason' => $this->reason,
             'is_rescheduled' => true,
+        ]);
+
+        Notif::create([
+            'user_id' => $data->user->id,
+            'patient_appointment_id' => $data->id,
+            'doctor_id' => $data->doctor_id,
+            'description' => 'Your booking for Dr. ' . $data->doctor->user->name . ' has been rescheduled to. ' . \Carbon\Carbon::parse($this->new_schedule)->format('F d, Y') . '.',
+
         ]);
         $this->dialog()->success(
 

@@ -8,7 +8,7 @@
 
                 <div class="bg-white px-5 py-2 pb-5  rounded-xl">
                     <div class="flex mb-10 justify-center items-center">
-                        <img class="h-20   rounded-full w-auto" src="{{ asset('images/LOGO.png') }}" class=""
+                        <img class="h-20   rounded-full w-auto" src="{{ asset('images/logo.png') }}" class=""
                             alt="Your Company">
                     </div>
 

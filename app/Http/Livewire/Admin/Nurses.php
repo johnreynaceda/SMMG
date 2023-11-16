@@ -50,7 +50,7 @@ class Nurses extends Component implements Tables\Contracts\HasTable
                 Nurse::create([
                     'user_id' => $user->id,
                     'firstname' => $data['firstname'],
-                    'middlename' => $data['middlename'],
+                    'middlename' => $data['middlename'] == null ? 'null' : $data['middlename'],
                     'lastname' => $data['lastname'],
                     'gender' => $data['gender'],
                     // 'image_path' => $data['attachment'][0]->store('doctor_attachments', 'public'),
@@ -65,7 +65,7 @@ class Nurses extends Component implements Tables\Contracts\HasTable
                         Fieldset::make('NURSE INFORMATION')
                             ->schema([
                                 TextInput::make('firstname')->label('First Name')->required(),
-                                TextInput::make('middlename')->label('Middle Name')->required(),
+                                TextInput::make('middlename')->label('Middle Name (Optional)'),
                                 TextInput::make('lastname')->label('Last Name')->required(),
                                 TextInput::make('phone_number')->label('Phone Number')->numeric()->required(),
                                 Select::make('gender')->required()
@@ -112,7 +112,7 @@ class Nurses extends Component implements Tables\Contracts\HasTable
                 function ($record, $data) {
                     $record->update([
                         'firstname' => $data['firstname'],
-                        'middlename' => $data['middlename'],
+                        'middlename' => $data['middlename'] == 'null' ? 'null' : $data['middlename'],
                         'lastname' => $data['lastname'],
                         // 'specialization' => $data['specialization'],
                         // 'image_path' => $data['attachment'][0]->store('doctor_attachments', 'public'),
@@ -136,7 +136,7 @@ class Nurses extends Component implements Tables\Contracts\HasTable
                             Fieldset::make('NURSE INFORMATION')
                                 ->schema([
                                     TextInput::make('firstname')->label('First Name')->required()->default($record->firstname),
-                                    TextInput::make('middlename')->label('Middle Name')->required()->default($record->middlename),
+                                    TextInput::make('middlename')->label('Middle Name (Optional)')->default($record->middlename),
                                     TextInput::make('lastname')->label('Last Name')->required()->default($record->lastname),
                                     TextInput::make('phone_number')->label('Phone Number')->numeric()->required()->default($record->user->phone_number),
                                     // FileUpload::make('attachment')->label('Attachment')->multiple()->required(),

@@ -48,7 +48,7 @@
             <img src="{{ asset('images/hospital-bg.jpg') }}" class="w-full opacity-10" alt="">
         </div>
         <!-- Header -->
-        <header class="absolute inset-x-0 top-0 z-50">
+        <header class="absolute inset-x-0 top-0 z-50" x-data="{ open: false }">
             <div class="bg-white">
                 <nav class="flex items-center mx-auto  max-w-7xl justify-between p-6 lg:px-8" aria-label="Global">
                     <div class="flex lg:flex-1">
@@ -58,7 +58,7 @@
                         </a>
                     </div>
                     <div class="flex lg:hidden">
-                        <button type="button"
+                        <button type="button" x-on:click="open = !open"
                             class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-400">
                             <span class="sr-only">Open main menu</span>
                             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -95,7 +95,7 @@
                 </nav>
             </div>
             <!-- Mobile menu, show/hide based on menu open state. -->
-            {{-- <div class="lg:hidden" role="dialog" aria-modal="true">
+            <div x-show="open" x-cloak class="lg:hidden" role="dialog" aria-modal="true">
                 <!-- Background backdrop, show/hide based on slide-over state. -->
                 <div class="fixed inset-0 z-50"></div>
                 <div
@@ -103,10 +103,9 @@
                     <div class="flex items-center justify-between">
                         <a href="#" class="-m-1.5 p-1.5">
                             <span class="sr-only">Your Company</span>
-                            <img class="h-8 w-auto"
-                                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="">
+                            <img class="h-8 w-auto" src="{{ asset('images/logo.png') }}" alt="">
                         </a>
-                        <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700">
+                        <button x-on:click="open = false" type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700">
                             <span class="sr-only">Close menu</span>
                             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" aria-hidden="true">
@@ -116,35 +115,29 @@
                     </div>
                     <div class="mt-6 flow-root">
                         <div class="-my-6 divide-y divide-gray-500/10">
-                            <div class="space-y-2 py-6">
-                                <a href="#"
-                                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Product</a>
-                                <a href="#"
-                                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Features</a>
-                                <a href="#"
-                                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Marketplace</a>
-                                <a href="#"
-                                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Company</a>
-                            </div>
+
                             <div class="py-6">
-                                <a href="#"
+                                <a href="{{ route('login') }}"
                                     class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Log
                                     in</a>
+                                <a href="{{ route('new-account') }}"
+                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Sign
+                                    Up</a>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div> --}}
+            </div>
         </header>
 
         <main>
             <!-- Hero section -->
             <div class="relative isolate overflow-hidden  pb-16 pt-14  sm:pb-20">
-                <div class="absolute bottom-0 right-0">
-                    <img src="{{ asset('images/doctor5.png') }}" class="h-[30rem]" alt="">
+                <div class="absolute bottom-0 -right-32 2xl:-right-32">
+                    <img src="{{ asset('images/doctor5.png') }}" class="h-[16rem] 2xl:h-[35rem]" alt="">
                 </div>
-                <div class="absolute bottom-0 right-96">
-                    <img src="{{ asset('images/doctor4.png') }}" class="h-[40rem]" alt="">
+                <div class="absolute bottom-0 right-20 2xl:right-96">
+                    <img src="{{ asset('images/doctor4.png') }}" class=" h-[19rem] 2xl:h-[40rem]" alt="">
                 </div>
                 <img src="{{ asset('images/backgound.png') }}" alt=""
                     class="absolute inset-0 -z-10 h-full w-full  object-cover">
@@ -177,31 +170,21 @@
                     </div>
                 </div>
                 <section class="mx-auto max-w-7xl">
-                    <div class=" py-32 sm:py-48 lg:py-36">
-                        <div class="relative">
+                    <div class=" py-40 sm:py-52 lg:py-48 ">
+                        <div class="relative 2xl:mt-10">
                             <div class="max-w-3xl text-center lg:text-left">
                                 <div class="max-w-xl mx-auto text-center lg:p-10 lg:text-left">
                                     <div>
                                         <p
-                                            class="text-2xl font-courgette font-bold  tracking-tight text-white sm:text-7xl">
+                                            class="text-3xl font-courgette font-bold  tracking-tight text-white sm:text-7xl">
                                             Meet the Best Diagnostic Center
                                         </p>
-                                        <p class="max-w-xl mt-10 text-xl tracking-tight text-gray-50">
+                                        <p class="max-w-xl 2xl:mt-10 mt-5 text-xl tracking-tight text-gray-50">
                                             Basta serbisyong MMG, Aprub!
                                         </p>
                                     </div>
 
-                                    <div
-                                        class="flex px-8 xl:px-0 flex-col items-center justify-center gap-3 mt-10 lg:flex-row lg:justify-start">
-                                        <a href="#"
-                                            class="items-center justify-center w-full px-6 py-2.5  text-center text-white duration-200 bg-red-600 border-2 border-transparent rounded-full inline-flex hover:border-2 hover:border-white focus:outline-none lg:w-auto focus-visible:outline-black text-sm focus-visible:ring-black">
-                                            Book Now
-                                        </a>
-                                        <a href="#"
-                                            class="items-center justify-center w-full px-6 py-2.5  text-center text-white duration-200 bg-transparent border-2 border-white rounded-full inline-flex hover:bg-transparent focus:outline-none lg:w-auto focus-visible:outline-black text-sm focus-visible:ring-black">
-                                            Learn More
-                                        </a>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>

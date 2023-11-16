@@ -1,7 +1,7 @@
 <?php
 
 Route::prefix('admin')
-    ->middleware(['auth'])
+    ->middleware(['auth', 'admin'])
     ->group(function () {
         Route::get('/dashboard', function () {
             return view('admin.index');

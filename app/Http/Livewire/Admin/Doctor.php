@@ -54,11 +54,12 @@ class Doctor extends Component implements Tables\Contracts\HasTable
                 $doctor = doctorModel::create([
                     'user_id' => $user->id,
                     'firstname' => $data['firstname'],
-                    'middlename' => $data['middlename'],
+                    'middlename' => $data['middlename'] == null ? 'null' : $data['middlename'],
                     'lastname' => $data['lastname'],
                     'gender' => $data['gender'],
                     'schedule' => implode('/', $data['schedule']),
-
+                    'time_schedule' => $data['time'],
+                    'slot' => $data['slot'],
                 ]);
 
                 foreach ($data['specialization'] as $key => $value) {
@@ -76,7 +77,7 @@ class Doctor extends Component implements Tables\Contracts\HasTable
                         Fieldset::make('DOCTOR INFORMATION')
                             ->schema([
                                 TextInput::make('firstname')->label('First Name')->required(),
-                                TextInput::make('middlename')->label('Middle Name')->required(),
+                                TextInput::make('middlename')->label('Middle Name (Optional)'),
                                 TextInput::make('lastname')->label('Last Name')->required(),
                                 Select::make('gender')->required()
                                     ->options([
@@ -94,6 +95,8 @@ class Doctor extends Component implements Tables\Contracts\HasTable
                                     'Saturday' => 'Saturday',
                                     'Sunday' => 'Sunday',
                                 ])->multiple(),
+                                TextInput::make('time')->label('Time Schedule')->required(),
+                                TextInput::make('slot')->label('Daily Slot')->numeric()->required(),
                             ])
                             ->columns(3),
                         Fieldset::make('ACCOUNT INFORMATION')
@@ -117,9 +120,8 @@ class Doctor extends Component implements Tables\Contracts\HasTable
             ViewColumn::make('name')->label('FULLNAME')->view('admin.doctor-filament')->searchable(['firstname', 'middlename', 'lastname']),
             Tables\Columns\TextColumn::make('user.email')->label('EMAIL')->searchable(),
             Tables\Columns\TextColumn::make('user.phone_number')->label('PHONE NUMBER')->searchable(),
-            Tables\Columns\TextColumn::make('schedule')->label('SCHEDULE')->searchable(),
+            Tables\Columns\TextColumn::make('schedule')->label('SCHEDULE')->searchable()->limit(10),
             Tables\Columns\TextColumn::make('created_at')->label('CREATED DATE')->date()->searchable(),
-
         ];
 
     }
@@ -132,10 +134,12 @@ class Doctor extends Component implements Tables\Contracts\HasTable
                 function ($record, $data) {
                     $record->update([
                         'firstname' => $data['firstname'],
-                        'middlename' => $data['middlename'],
+                        'middlename' => $data['middlename'] == 'null' ? 'null' : $data['middlename'],
                         'lastname' => $data['lastname'],
 
-                        'schedule' => implode('/', $data['schedule'])
+                        'schedule' => implode('/', $data['schedule']),
+                        'time_schedule' => $data['time'],
+                        'slot' => $data['slot'],
                         // 'image_path' => $data['attachment'][0]->store('doctor_attachments', 'public'),
                     ]);
 
@@ -148,9 +152,6 @@ class Doctor extends Component implements Tables\Contracts\HasTable
                             'specialization_id' => $value,
                         ]);
                     }
-
-
-
 
                     $record->user->update([
                         'name' => $data['firstname'] . ' ' . $data['lastname'],
@@ -167,7 +168,7 @@ class Doctor extends Component implements Tables\Contracts\HasTable
                             Fieldset::make('DOCTOR INFORMATION')
                                 ->schema([
                                     TextInput::make('firstname')->label('First Name')->required()->default($record->firstname),
-                                    TextInput::make('middlename')->label('Middle Name')->required()->default($record->middlename),
+                                    TextInput::make('middlename')->label('Middle Name (Optional)')->default($record->middlename),
                                     TextInput::make('lastname')->label('Last Name')->required()->default($record->lastname),
                                     Select::make('gender')->required()->default($record->gender)
                                         ->options([
@@ -188,6 +189,8 @@ class Doctor extends Component implements Tables\Contracts\HasTable
                                     ])->multiple()->default(
                                             explode('/', $record->schedule)
                                         ),
+                                    TextInput::make('time')->label('Time Schedule')->required()->default($record->time_schedule),
+                                    TextInput::make('slot')->label('Daily Slot')->numeric()->required()->default($record->slot),
                                 ])
                                 ->columns(3),
                             Fieldset::make('ACCOUNT INFORMATION')
