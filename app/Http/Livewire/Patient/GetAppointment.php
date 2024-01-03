@@ -50,7 +50,7 @@ class GetAppointment extends Component implements Forms\Contracts\HasForms
             'slots' => (Doctor::where('id', $this->doctor_id)->first()->slot ?? 0) - PatientAppointment::when(
                 $this->appointment_date,
                 function ($record) {
-                    return $record->whereDate('appointment_date', $this->appointment_date);
+                    return $record->where('doctor_id', $this->doctor_id)->whereDate('appointment_date', $this->appointment_date);
                 }
             )->count(),
             'specializations' => DoctorSpecialization::where('doctor_id', $this->doctor_id)->get(),

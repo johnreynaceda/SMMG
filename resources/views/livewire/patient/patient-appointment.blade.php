@@ -207,7 +207,7 @@
                 <div class="mt-5 flex flex-col space-y-2">
                     <x-datetime-picker label="Appointment Date" without-time wire:model.defer="new_schedule" />
                     <x-textarea label="Reason" wire:model.defer="reason" placeholder="write your reason" />
-                    <span class="text-red-500 text-sm">Note: You are allowed to reschedule your appointment once.</span>
+                    <span class="text-red-500 text-sm">Note: Reschedule your appointment only when it is necessary</span>
                 </div>
                 <x-slot name="footer">
 

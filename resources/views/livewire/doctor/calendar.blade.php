@@ -118,7 +118,6 @@
                         modalBody.innerHTML =
                             '<div class="bg-primary-100 mt-3 p-3 rounded-md"><li class="flex py-1"><div class="ml-3"><p class="font-bold uppercase text-gray-700">' +
                             info.event.extendedProps.name +
-                            '</p><p class="text-xs text-gray-500">' + info.event.extendedProps.other +
                             '</p>' + '</p><p class="text-xs text-gray-500">' + info.event.extendedProps
                             .description +
                             '</p><p class="text-xs text-gray-500">' + '</div></li> </div>';

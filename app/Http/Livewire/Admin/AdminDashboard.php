@@ -43,7 +43,7 @@ class AdminDashboard extends Component implements Tables\Contracts\HasTable
 
         $specializations = Specialization::withCount([
             'patient_appointments' => function ($query) use ($today, $oneWeekAgo) {
-                $query->whereBetween('created_at', [$oneWeekAgo, $today])->where('status', 'accepted');
+                $query->whereBetween('created_at', [$oneWeekAgo, $today])->whereIn('status', ['accepted', 'done']);
             }
         ])->get();
 
@@ -54,7 +54,7 @@ class AdminDashboard extends Component implements Tables\Contracts\HasTable
 
         return view('livewire.admin.admin-dashboard', [
             'visits' => User::whereDate('created_at', now())->count(),
-            'new' => PatientAppointment::whereDate('created_at', '<=', now())->whereDate('created_at', '>=', now()->subDays(5))->count(),
+            'new' => PatientAppointment::where('status', 'pending')->count(),
             'old' => PatientAppointment::where('status', 'done')->count(),
             'specialists' => Specialization::get(),
         ]);

@@ -15,7 +15,7 @@ class Nurse
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user()->account_type == 'admin') {
+        if (auth()->user()->account_type == 'nurse') {
             return $next($request);
         } else {
             return redirect()->route('dashboard');

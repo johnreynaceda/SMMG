@@ -48,7 +48,7 @@
             <img src="{{ asset('images/hospital-bg.jpg') }}" class="w-full opacity-10" alt="">
         </div>
         <!-- Header -->
-        <header class="absolute inset-x-0 top-0 z-50" x-data="{ open: false }">
+        <header id="home" class="absolute inset-x-0 top-0 z-50" x-data="{ open: false }">
             <div class="bg-white">
                 <nav class="flex items-center mx-auto  max-w-7xl justify-between p-6 lg:px-8" aria-label="Global">
                     <div class="flex lg:flex-1">
@@ -69,9 +69,9 @@
                         </button>
                     </div>
                     <div class="hidden lg:flex lg:gap-x-12">
-                        <a href="#" class="text-sm font-semibold leading-6 text-gray- 700">Home</a>
-                        <a href="#" class="text-sm font-semibold leading-6 text-gray- 700">About</a>
-                        <a href="#" class="text-sm font-semibold leading-6 text-gray- 700">Contact</a>
+                        <a href="#home" class="text-sm font-semibold leading-6 text-gray- 700">Home</a>
+                        <a href="#about" class="text-sm font-semibold leading-6 text-gray- 700">About</a>
+                        <a href="#contact" class="text-sm font-semibold leading-6 text-gray- 700">Contact</a>
                     </div>
                     <div class="hidden lg:flex lg:flex-1 lg:justify-end">
                         <div class="flex space-x-2 items-center">
@@ -200,7 +200,7 @@
             </div>
 
             <!-- Feature section -->
-            <div class="mt-32 relative">
+            <div id="about" class="mt-32 relative">
                 <div data-aos="fade-down" data-aos-easing="linear" data-aos-duration="1500"
                     class="mx-auto max-w-7xl px-6 lg:px-8">
                     <div class="mx-auto max-w-2xl sm:text-center">
@@ -345,7 +345,7 @@
                     </svg>
                 </div>
             </div>
-            <section>
+            <section id="contact">
                 <div class="relative items-center w-full px-5 bg-[#617E5B] mx-auto md:px-12 lg:px-16 ">
                     <div class="mx-auto max-w-7xl py-40">
                         <div data-aos="zoom-in-up" class="grid grid-cols-1 lg:grid-cols-2 gap-10">

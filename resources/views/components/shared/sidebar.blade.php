@@ -56,7 +56,7 @@
 
 
                                     </ul>
-                                    <div class="mt-20 mb-5">
+                                    {{-- <div class="mt-20 mb-5">
                                         <ul>
                                             <li>
                                                 <a class="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500"
@@ -87,7 +87,7 @@
                                                 </a>
                                             </li>
                                         </ul>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
